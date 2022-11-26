@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnPortal.WEB", "LearnPor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnPortal.BLL", "LearnPortal.BLL\LearnPortal.BLL.csproj", "{C9EFC120-9BF4-4C99-ABF5-B4C9F39AB14E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnPortal.DAL", "LearnPortal.DAL\LearnPortal.DAL.csproj", "{6D5D2BA7-1901-4802-95A5-4D16BA2F66A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C9EFC120-9BF4-4C99-ABF5-B4C9F39AB14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9EFC120-9BF4-4C99-ABF5-B4C9F39AB14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9EFC120-9BF4-4C99-ABF5-B4C9F39AB14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5D2BA7-1901-4802-95A5-4D16BA2F66A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5D2BA7-1901-4802-95A5-4D16BA2F66A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5D2BA7-1901-4802-95A5-4D16BA2F66A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5D2BA7-1901-4802-95A5-4D16BA2F66A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
