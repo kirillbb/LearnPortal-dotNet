@@ -10,7 +10,7 @@ namespace LearnPortal.BLL.Interfaces
 
         Task DeleteBook(int id);
 
-        Task UpdateBook(BookDTO course);
+        Task UpdateBook(BookDTO book);
 
         IEnumerable<BookDTO> FindBook(Func<Book, bool> predicate);
 
