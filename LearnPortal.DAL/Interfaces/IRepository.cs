@@ -12,6 +12,6 @@
 
         Task UpdateAsync(T item);
 
-        Task DeleteAsync(T item);
+        Task DeleteAsync(int id);
     }
 }

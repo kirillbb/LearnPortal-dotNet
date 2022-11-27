@@ -21,9 +21,10 @@ namespace LearnPortal.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(TEntity item)
+        public async Task DeleteAsync(int id)
         {
-            _dbSet.Remove(item);
+            var course = await GetAsync(id);
+            _dbSet.Remove(course);
              await _context.SaveChangesAsync();
         }
 
