@@ -15,5 +15,7 @@ namespace LearnPortal.BLL.Interfaces
         IEnumerable<BookDTO> FindBook(Func<Book, bool> predicate);
 
         Task<BookDTO> GetBook(int id);
+
+        Task<IEnumerable<BookDTO>> GetBooksAsync();
     }
 }
