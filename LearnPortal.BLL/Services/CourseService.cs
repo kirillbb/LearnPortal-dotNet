@@ -35,6 +35,7 @@ namespace LearnPortal.BLL.Services
 
         public async Task CreateCourse(CourseDTO course)
         {
+            course.Id = new Guid();
             course.OwnerId = _currentUser.Id;
             await _courseRepo.CreateAsync(_mapper.Map<Course>(course));
         }
