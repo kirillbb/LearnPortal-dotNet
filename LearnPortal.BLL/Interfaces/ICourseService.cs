@@ -14,5 +14,7 @@ namespace LearnPortal.BLL.Interfaces
         IEnumerable<CourseDTO> FindCourse(Func<Course, bool> predicate);
 
         Task<CourseDTO> GetCourse(int id);
+
+        Task<IEnumerable<CourseDTO>> GetCoursesAsync();
     }
 }
