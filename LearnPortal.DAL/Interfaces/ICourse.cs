@@ -1,4 +1,7 @@
-﻿namespace LearnPortal.DAL.Interfaces
+﻿using LearnPortal.DAL.Entities.Course;
+using LearnPortal.DAL.Entities.Material;
+
+namespace LearnPortal.DAL.Interfaces
 {
     public interface ICourse
     {
@@ -10,8 +13,8 @@
 
         Guid OwnerId { get; set; }
 
-        IEnumerable<IMaterial> Materials { get; set; }
+        IEnumerable<Material> Materials { get; set; }
 
-        IEnumerable<ISkill> Skills { get; set; }
+        IEnumerable<Skill> Skills { get; set; }
     }
 }
