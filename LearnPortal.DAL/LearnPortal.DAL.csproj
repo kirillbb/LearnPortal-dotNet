@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="7.0.0" />
+    <PackageReference Include="microsoft.extensions.configuration.json" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
