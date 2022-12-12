@@ -29,5 +29,7 @@ namespace LearnPortal.DAL.Data
         public DbSet<Course> Courses { get; set; } = null!;
 
         public DbSet<Skill> Skills { get; set; } = null!;
+
+        public static OptionsBuilder OptionsBuilder => new OptionsBuilder();
     }
 }
