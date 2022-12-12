@@ -1,4 +1,6 @@
-﻿namespace LearnPortal.DAL.Interfaces
+﻿using LearnPortal.DAL.Entities.Course;
+
+namespace LearnPortal.DAL.Interfaces
 {
     public interface IUser
     {
@@ -8,10 +10,10 @@
 
         string Email { get; set; }
 
-        IEnumerable<ICourse> FinishedCourses { get; set; }
+        IEnumerable<Course> FinishedCourses { get; set; }
 
-        IEnumerable<ICourse> InProgressCourses { get; set; }
+        IEnumerable<Course> InProgressCourses { get; set; }
 
-        IEnumerable<ISkill> Skills { get; set; }
+        IEnumerable<Skill> Skills { get; set; }
     }
 }

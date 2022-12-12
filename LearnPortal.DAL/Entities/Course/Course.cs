@@ -12,8 +12,8 @@ namespace LearnPortal.DAL.Entities.Course
         
         public Guid OwnerId { get; set; }
         
-        public IEnumerable<IMaterial> Materials { get; set; }
+        public IEnumerable<Material.Material> Materials { get; set; }
         
-        public IEnumerable<ISkill> Skills { get; set; }
+        public IEnumerable<Skill> Skills { get; set; }
     }
 }
