@@ -1,5 +1,5 @@
 ﻿using LearnPortal.DAL.Entities.CourseType;
-using LearnPortal.DAL.Entities.Material;
+using LearnPortal.DAL.Entities.MaterialType;
 
 namespace LearnPortal.DAL.Interfaces
 {
@@ -13,8 +13,8 @@ namespace LearnPortal.DAL.Interfaces
 
         Guid OwnerId { get; set; }
 
-        IEnumerable<Material> Materials { get; set; }
+        List<Material> Materials { get; set; }
 
-        IEnumerable<Skill> Skills { get; set; }
+        List<Skill> Skills { get; set; }
     }
 }

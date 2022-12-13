@@ -1,7 +1,7 @@
-﻿using LearnPortal.DAL.Entities.Course;
+﻿using LearnPortal.DAL.Entities.CourseType;
 using LearnPortal.DAL.Interfaces;
 
-namespace LearnPortal.DAL.Entities.User
+namespace LearnPortal.DAL.Entities.UserType
 {
     public class User : IUser
     {
@@ -13,8 +13,8 @@ namespace LearnPortal.DAL.Entities.User
         
         public List<Course> FinishedCourses { get; set; }
         
-        public IEnumerable<Course.Course> InProgressCourses { get; set; }
+        public List<Course> InProgressCourses { get; set; }
         
-        public IEnumerable<Skill> Skills { get; set; }
+        public List<Skill> Skills { get; set; }
     }
 }
