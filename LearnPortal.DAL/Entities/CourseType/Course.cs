@@ -1,6 +1,6 @@
 ﻿using LearnPortal.DAL.Interfaces;
 
-namespace LearnPortal.DAL.Entities.Course
+namespace LearnPortal.DAL.Entities.CourseType
 {
     public class Course : ICourse
     {

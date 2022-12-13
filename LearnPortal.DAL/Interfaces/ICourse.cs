@@ -1,4 +1,4 @@
-﻿using LearnPortal.DAL.Entities.Course;
+﻿using LearnPortal.DAL.Entities.CourseType;
 using LearnPortal.DAL.Entities.Material;
 
 namespace LearnPortal.DAL.Interfaces

@@ -11,7 +11,7 @@ namespace LearnPortal.DAL.Entities.User
         
         public string Email { get; set; }
         
-        public IEnumerable<Course.Course> FinishedCourses { get; set; }
+        public List<Course> FinishedCourses { get; set; }
         
         public IEnumerable<Course.Course> InProgressCourses { get; set; }
         
