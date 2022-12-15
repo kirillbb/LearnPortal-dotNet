@@ -1,5 +1,6 @@
 ﻿using LearnPortal.DAL.Entities.CourseType;
 using LearnPortal.DAL.Entities.MaterialType;
+using LearnPortal.DAL.Entities.UserType;
 
 namespace LearnPortal.DAL.Interfaces
 {
@@ -13,7 +14,9 @@ namespace LearnPortal.DAL.Interfaces
 
         Guid OwnerId { get; set; }
 
-        //public List<Course>? InProgressUsers { get; set; }
+        List<User>? FinishedStudents { get; set; }
+
+        List<User>? InProgressStudents { get; set; }
 
         List<Material>? Materials { get; set; }
 
