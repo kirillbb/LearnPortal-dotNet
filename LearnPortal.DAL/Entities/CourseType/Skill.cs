@@ -9,7 +9,9 @@ namespace LearnPortal.DAL.Entities.CourseType
         public string Title { get; set; }
         
         public string Description { get; set; }
-        
+
+        public List<Course>? Courses { get; set; }
+
         public Guid OwnerId { get; set; }
     }
 }

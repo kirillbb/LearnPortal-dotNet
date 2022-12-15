@@ -4,6 +4,7 @@ using LearnPortal.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnPortal.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20221215084622_AddNewPropToCourse")]
+    partial class AddNewPropToCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +100,12 @@ namespace LearnPortal.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Skills");
                 });
@@ -146,9 +154,6 @@ namespace LearnPortal.DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("InProgressCoursesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ReceivedSkills")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
@@ -234,6 +239,18 @@ namespace LearnPortal.DAL.Migrations
                         .HasForeignKey("SkillsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Skill", b =>
+                {
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
+                        .WithMany("Skills")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("LearnPortal.DAL.Entities.UserType.User", b =>
+                {
+                    b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,8 +13,12 @@ namespace LearnPortal.DAL.Interfaces
 
         Guid OwnerId { get; set; }
 
-        List<Material> Materials { get; set; }
+        Guid? FinishedUsersId { get; set; }
 
-        List<Skill> Skills { get; set; }
+        Guid? InProgressUsersId { get; set; }
+
+        List<Material>? Materials { get; set; }
+
+        List<Skill>? Skills { get; set; }
     }
 }
