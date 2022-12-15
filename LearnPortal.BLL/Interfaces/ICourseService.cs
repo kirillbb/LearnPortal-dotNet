@@ -1,5 +1,5 @@
 ﻿using LearnPortal.BLL.DTO;
-using LearnPortal.DAL.Entities.Course;
+using LearnPortal.DAL.Entities.CourseType;
 
 namespace LearnPortal.BLL.Interfaces
 {

@@ -2,8 +2,8 @@
 using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Interfaces;
 using LearnPortal.DAL.Data;
-using LearnPortal.DAL.Entities.Course;
-using LearnPortal.DAL.Entities.Material;
+using LearnPortal.DAL.Entities.CourseType;
+using LearnPortal.DAL.Entities.MaterialType;
 using LearnPortal.DAL.Interfaces;
 using LearnPortal.DAL.Repository;
 
