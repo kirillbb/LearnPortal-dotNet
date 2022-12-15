@@ -1,4 +1,4 @@
-﻿namespace LearnPortal.PL
+﻿namespace LearnPortal.PL.UI
 {
     public static class Printer
     {
