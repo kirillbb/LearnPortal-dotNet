@@ -11,10 +11,10 @@ namespace LearnPortal.DAL.Entities.UserType
         
         public string Email { get; set; }
         
-        public List<Course> FinishedCourses { get; set; }
+        public Guid? FinishedCourseId { get; set; }
         
-        public List<Course> InProgressCourses { get; set; }
+        public Guid? InProgressCoursesId { get; set; }
         
-        public List<Skill> Skills { get; set; }
+        public List<Skill>? Skills { get; set; }
     }
 }
