@@ -1,10 +1,12 @@
 ﻿using LearnPortal.DAL.Entities.CourseType;
 using LearnPortal.DAL.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace LearnPortal.DAL.Entities.MaterialType
 {
     public class Material : IMaterial
     {
+        [Key]
         public Guid Id { get; set; }
         
         public string Title { get; set; }

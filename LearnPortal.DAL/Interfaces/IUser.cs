@@ -10,10 +10,10 @@ namespace LearnPortal.DAL.Interfaces
 
         string Email { get; set; }
 
-        Guid? FinishedCourseId { get; set; }
+        //List<Course>? FinishedLearn { get; set; }
 
-        Guid? InProgressCoursesId { get; set; }
+        //List<Course>? InProgressCourses { get; set; }
 
-        Guid? ReceivedSkills { get; set; }
+        List<Skill>? ReceivedSkills { get; set; }
     }
 }
