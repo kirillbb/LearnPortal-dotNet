@@ -1,4 +1,6 @@
-﻿namespace LearnPortal.DAL.Interfaces
+﻿using LearnPortal.DAL.Entities.UserType;
+
+namespace LearnPortal.DAL.Interfaces
 {
     public interface ISkill
     {
@@ -9,5 +11,7 @@
         string Description { get; set; }
 
         Guid OwnerId { get; set; }
+
+        List<User>? ReceivedUsers { get; set; }
     }
 }

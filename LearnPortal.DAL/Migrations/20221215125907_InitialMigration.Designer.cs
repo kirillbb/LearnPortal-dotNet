@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnPortal.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221213170700_InitialMigration")]
+    [Migration("20221215125907_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,66 @@ namespace LearnPortal.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CourseMaterial", b =>
+                {
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MaterialsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CoursesId", "MaterialsId");
+
+                    b.HasIndex("MaterialsId");
+
+                    b.ToTable("CourseMaterial");
+                });
+
+            modelBuilder.Entity("CourseSkill", b =>
+                {
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SkillsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CoursesId", "SkillsId");
+
+                    b.HasIndex("SkillsId");
+
+                    b.ToTable("CourseSkill");
+                });
+
+            modelBuilder.Entity("CourseUser", b =>
+                {
+                    b.Property<Guid>("FinishedCoursesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FinishedStudentsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FinishedCoursesId", "FinishedStudentsId");
+
+                    b.HasIndex("FinishedStudentsId");
+
+                    b.ToTable("CourseUser");
+                });
+
+            modelBuilder.Entity("CourseUser1", b =>
+                {
+                    b.Property<Guid>("InProgressCoursesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InProgressStudentsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("InProgressCoursesId", "InProgressStudentsId");
+
+                    b.HasIndex("InProgressStudentsId");
+
+                    b.ToTable("CourseUser1");
+                });
 
             modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Course", b =>
                 {
@@ -42,17 +102,7 @@ namespace LearnPortal.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Courses");
                 });
@@ -61,9 +111,6 @@ namespace LearnPortal.DAL.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -77,14 +124,7 @@ namespace LearnPortal.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Skills");
                 });
@@ -93,9 +133,6 @@ namespace LearnPortal.DAL.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -113,9 +150,12 @@ namespace LearnPortal.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Materials");
 
@@ -134,6 +174,10 @@ namespace LearnPortal.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -141,6 +185,21 @@ namespace LearnPortal.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("SkillUser", b =>
+                {
+                    b.Property<Guid>("ReceivedSkillsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReceivedUsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ReceivedSkillsId", "ReceivedUsersId");
+
+                    b.HasIndex("ReceivedUsersId");
+
+                    b.ToTable("SkillUser");
                 });
 
             modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Book", b =>
@@ -189,49 +248,91 @@ namespace LearnPortal.DAL.Migrations
                     b.HasDiscriminator().HasValue("Video");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Course", b =>
-                {
-                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
-                        .WithMany("FinishedCourses")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
-                        .WithMany("InProgressCourses")
-                        .HasForeignKey("UserId1");
-                });
-
-            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Skill", b =>
+            modelBuilder.Entity("CourseMaterial", b =>
                 {
                     b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
-                        .WithMany("Skills")
-                        .HasForeignKey("CourseId");
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearnPortal.DAL.Entities.MaterialType.Material", null)
+                        .WithMany()
+                        .HasForeignKey("MaterialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseSkill", b =>
+                {
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Skill", null)
+                        .WithMany()
+                        .HasForeignKey("SkillsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseUser", b =>
+                {
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
+                        .WithMany()
+                        .HasForeignKey("FinishedCoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
-                        .WithMany("Skills")
-                        .HasForeignKey("UserId");
+                        .WithMany()
+                        .HasForeignKey("FinishedStudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseUser1", b =>
+                {
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
+                        .WithMany()
+                        .HasForeignKey("InProgressCoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
+                        .WithMany()
+                        .HasForeignKey("InProgressStudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Material", b =>
                 {
-                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
-                        .WithMany("Materials")
-                        .HasForeignKey("CourseId");
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
+                        .WithMany("FinishedMaterials")
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Course", b =>
+            modelBuilder.Entity("SkillUser", b =>
                 {
-                    b.Navigation("Materials");
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Skill", null)
+                        .WithMany()
+                        .HasForeignKey("ReceivedSkillsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Skills");
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
+                        .WithMany()
+                        .HasForeignKey("ReceivedUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LearnPortal.DAL.Entities.UserType.User", b =>
                 {
-                    b.Navigation("FinishedCourses");
-
-                    b.Navigation("InProgressCourses");
-
-                    b.Navigation("Skills");
+                    b.Navigation("FinishedMaterials");
                 });
 #pragma warning restore 612, 618
         }
