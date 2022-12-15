@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnPortal.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221212161654_InitialMigration")]
+    [Migration("20221213170700_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace LearnPortal.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Course.Course", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Course", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace LearnPortal.DAL.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Course.Skill", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Skill", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +89,7 @@ namespace LearnPortal.DAL.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Material.Material", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Material", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -124,7 +124,7 @@ namespace LearnPortal.DAL.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.User.User", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.UserType.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,9 +143,9 @@ namespace LearnPortal.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Material.Book", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Book", b =>
                 {
-                    b.HasBaseType("LearnPortal.DAL.Entities.Material.Material");
+                    b.HasBaseType("LearnPortal.DAL.Entities.MaterialType.Material");
 
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
@@ -163,9 +163,9 @@ namespace LearnPortal.DAL.Migrations
                     b.HasDiscriminator().HasValue("Book");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Material.Publication", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Publication", b =>
                 {
-                    b.HasBaseType("LearnPortal.DAL.Entities.Material.Material");
+                    b.HasBaseType("LearnPortal.DAL.Entities.MaterialType.Material");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -176,9 +176,9 @@ namespace LearnPortal.DAL.Migrations
                     b.HasDiscriminator().HasValue("Publication");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Material.Video", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Video", b =>
                 {
-                    b.HasBaseType("LearnPortal.DAL.Entities.Material.Material");
+                    b.HasBaseType("LearnPortal.DAL.Entities.MaterialType.Material");
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
@@ -189,43 +189,43 @@ namespace LearnPortal.DAL.Migrations
                     b.HasDiscriminator().HasValue("Video");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Course.Course", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Course", b =>
                 {
-                    b.HasOne("LearnPortal.DAL.Entities.User.User", null)
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
                         .WithMany("FinishedCourses")
                         .HasForeignKey("UserId");
 
-                    b.HasOne("LearnPortal.DAL.Entities.User.User", null)
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
                         .WithMany("InProgressCourses")
                         .HasForeignKey("UserId1");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Course.Skill", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Skill", b =>
                 {
-                    b.HasOne("LearnPortal.DAL.Entities.Course.Course", null)
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
                         .WithMany("Skills")
                         .HasForeignKey("CourseId");
 
-                    b.HasOne("LearnPortal.DAL.Entities.User.User", null)
+                    b.HasOne("LearnPortal.DAL.Entities.UserType.User", null)
                         .WithMany("Skills")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Material.Material", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.MaterialType.Material", b =>
                 {
-                    b.HasOne("LearnPortal.DAL.Entities.Course.Course", null)
+                    b.HasOne("LearnPortal.DAL.Entities.CourseType.Course", null)
                         .WithMany("Materials")
                         .HasForeignKey("CourseId");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.Course.Course", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.CourseType.Course", b =>
                 {
                     b.Navigation("Materials");
 
                     b.Navigation("Skills");
                 });
 
-            modelBuilder.Entity("LearnPortal.DAL.Entities.User.User", b =>
+            modelBuilder.Entity("LearnPortal.DAL.Entities.UserType.User", b =>
                 {
                     b.Navigation("FinishedCourses");
 

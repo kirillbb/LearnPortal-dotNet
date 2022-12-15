@@ -1,4 +1,4 @@
-﻿using LearnPortal.DAL.Entities.Course;
+﻿using LearnPortal.DAL.Entities.CourseType;
 
 namespace LearnPortal.DAL.Interfaces
 {
@@ -10,10 +10,10 @@ namespace LearnPortal.DAL.Interfaces
 
         string Email { get; set; }
 
-        IEnumerable<Course> FinishedCourses { get; set; }
+        List<Course> FinishedCourses { get; set; }
 
-        IEnumerable<Course> InProgressCourses { get; set; }
+        List<Course> InProgressCourses { get; set; }
 
-        IEnumerable<Skill> Skills { get; set; }
+        List<Skill> Skills { get; set; }
     }
 }

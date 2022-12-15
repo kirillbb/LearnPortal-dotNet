@@ -1,5 +1,5 @@
 ﻿using LearnPortal.BLL.DTO;
-using LearnPortal.DAL.Entities.Material;
+using LearnPortal.DAL.Entities.MaterialType;
 
 namespace LearnPortal.BLL.Interfaces
 {

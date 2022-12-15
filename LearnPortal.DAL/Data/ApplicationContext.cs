@@ -1,6 +1,6 @@
-﻿using LearnPortal.DAL.Entities.Course;
-using LearnPortal.DAL.Entities.Material;
-using LearnPortal.DAL.Entities.User;
+﻿using LearnPortal.DAL.Entities.CourseType;
+using LearnPortal.DAL.Entities.MaterialType;
+using LearnPortal.DAL.Entities.UserType;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearnPortal.DAL.Data

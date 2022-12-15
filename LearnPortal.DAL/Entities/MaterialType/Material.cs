@@ -1,6 +1,6 @@
 ﻿using LearnPortal.DAL.Interfaces;
 
-namespace LearnPortal.DAL.Entities.Material
+namespace LearnPortal.DAL.Entities.MaterialType
 {
     public class Material : IMaterial
     {
