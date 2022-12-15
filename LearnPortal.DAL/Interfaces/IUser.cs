@@ -14,6 +14,6 @@ namespace LearnPortal.DAL.Interfaces
 
         Guid? InProgressCoursesId { get; set; }
 
-        List<Skill>? Skills { get; set; }
+        Guid? ReceivedSkills { get; set; }
     }
 }

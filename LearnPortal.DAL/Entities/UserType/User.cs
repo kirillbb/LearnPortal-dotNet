@@ -15,6 +15,6 @@ namespace LearnPortal.DAL.Entities.UserType
         
         public Guid? InProgressCoursesId { get; set; }
         
-        public List<Skill>? Skills { get; set; }
+        public Guid? ReceivedSkills { get; set; }
     }
 }
