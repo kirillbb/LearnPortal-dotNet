@@ -9,8 +9,11 @@ namespace LearnPortal.DAL.Entities.UserType
     public class User : IUser
     {
         [Key]
+        [ForeignKey("ApplicationUser")]
         public Guid Id { get; set; }
-        
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
         public string UserName { get; set; }
 
         public string Name { get; set; }
