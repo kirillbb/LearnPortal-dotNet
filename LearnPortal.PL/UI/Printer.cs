@@ -2,17 +2,6 @@
 {
     public static class Printer
     {
-        public static void AuthorizationMenu()
-        {
-            BreakLine();
-            Console.WriteLine("-- Select a menu item by pressing the desired number and Enter --");
-            BreakLine();
-            Console.WriteLine("[1] Sign up   *if you don't have an account");
-            Console.WriteLine("[2] Log in   *if you have an account\n");
-            Console.WriteLine("[0] Close the program");
-            BreakLine();
-        }
-
         public static void GeneralMenu()
         {
             BreakLine();
@@ -26,34 +15,20 @@
             BreakLine();
         }
 
-        internal static void SkillOperationsMenu()
-        {
-            BreakLine();
-            Console.WriteLine("-- Select a menu item by pressing the desired number and Enter --");
-            BreakLine();
-            Console.WriteLine("[1] Create skill");
-            Console.WriteLine("[2] Find skill by Id");
-            Console.WriteLine("[3] Update skill");
-            Console.WriteLine("[4] Delete skill");
-            Console.WriteLine("[5] Show all skills\n");
-            Console.WriteLine("[9] <--- Back");
-            Console.WriteLine("[0] Close the program");
-            BreakLine();
-        }
-
-        public static void ProfileMenu()
-        {
-            BreakLine();
-            Console.WriteLine("-- Select a menu item by pressing the desired number and Enter --");
-            BreakLine();
-            Console.WriteLine("[1] Change Email");
-            Console.WriteLine("[2] Change Password");
-            Console.WriteLine("[3] Take a course");
-            Console.WriteLine("[4] Finish a course");
-            Console.WriteLine("[9] <--- Back");
-            Console.WriteLine("[0] Close the program");
-            BreakLine();
-        }
+        //internal static void SkillOperationsMenu()
+        //{
+        //    BreakLine();
+        //    Console.WriteLine("-- Select a menu item by pressing the desired number and Enter --");
+        //    BreakLine();
+        //    Console.WriteLine("[1] Create skill");
+        //    Console.WriteLine("[2] Find skill by Id");
+        //    Console.WriteLine("[3] Update skill");
+        //    Console.WriteLine("[4] Delete skill");
+        //    Console.WriteLine("[5] Show all skills\n");
+        //    Console.WriteLine("[9] <--- Back");
+        //    Console.WriteLine("[0] Close the program");
+        //    BreakLine();
+        //}
 
         public static void CoursesOperationsMenu()
         {
@@ -73,18 +48,18 @@
             BreakLine();
         }
 
-        public static void MaterialOperationsMenu()
+        public static void CrudMenu(string nameOfType)
         {
             BreakLine();
             Console.WriteLine("-- Select a menu item by pressing the desired number and Enter --");
             BreakLine();
-            Console.WriteLine("[1] Create material");
-            Console.WriteLine("[2] Find by Id material");
-            Console.WriteLine("[3] Update material");
-            Console.WriteLine("[4] Delete material");
-            Console.WriteLine("[5] Show all materials\n");
-            Console.WriteLine("[9] <--- Back");
-            Console.WriteLine("[0] Close the program");
+            Console.WriteLine($"[1] Create {nameOfType}");
+            Console.WriteLine($"[2] Find {nameOfType} by Id");
+            Console.WriteLine($"[3] Update {nameOfType}");
+            Console.WriteLine($"[4] Delete {nameOfType}");
+            Console.WriteLine($"[5] Show all {nameOfType}s\n");
+            Console.WriteLine($"[9] <--- Back");
+            Console.WriteLine($"[0] Close the program");
             BreakLine();
         }
 
