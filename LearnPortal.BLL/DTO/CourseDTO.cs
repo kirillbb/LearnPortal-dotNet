@@ -1,6 +1,4 @@
-﻿using LearnPortal.DAL.Interfaces;
-
-namespace LearnPortal.BLL.DTO
+﻿namespace LearnPortal.BLL.DTO
 {
     public class CourseDTO
     {
@@ -12,8 +10,12 @@ namespace LearnPortal.BLL.DTO
 
         public Guid OwnerId { get; set; }
 
-        public IEnumerable<IMaterial> Materials { get; set; }
+        public List<UserDTO>? FinishedStudents { get; set; }
 
-        public IEnumerable<ISkill> Skills { get; set; }
+        public List<UserDTO>? InProgressStudents { get; set; }
+
+        public List<MaterialDTO>? Materials { get; set; }
+
+        public List<SkillDTO>? Skills { get; set; }
     }
 }

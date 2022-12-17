@@ -10,6 +10,8 @@
 
         public string Discriminator { get; set; }
 
+        public List<CourseDTO>? Courses { get; set; }
+
         public Guid OwnerId { get; set; }
     }
 }
