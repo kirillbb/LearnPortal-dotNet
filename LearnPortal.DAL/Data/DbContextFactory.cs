@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace LearnPortal.DAL.Data
 {
-    public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
+    public class DbContextFactory
     {
-        public ApplicationContext CreateDbContext(string[] args)
+        public ApplicationContext CreateDbContext()
         {
             ApplicationConfiguration configuration = new ApplicationConfiguration();
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();

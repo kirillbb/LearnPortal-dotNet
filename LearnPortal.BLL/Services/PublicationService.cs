@@ -18,7 +18,8 @@ namespace LearnPortal.BLL.Services
         public PublicationService(UserDTO currentUser)
         {
             _currentUser = currentUser;
-            _context = new ApplicationContext();
+            DbContextFactory contextFactory = new DbContextFactory();
+            _context = contextFactory.CreateDbContext();
             _publicationRepo = new GenericRepository<Publication>(_context);
             _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Publication, PublicationDTO>()).CreateMapper();
         }
