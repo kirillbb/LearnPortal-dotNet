@@ -1,10 +1,11 @@
 ﻿namespace LearnPortal.PL
 {
-    internal class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Starter starter = new Starter();
+            await starter.RunAsync();
         }
     }
 }
