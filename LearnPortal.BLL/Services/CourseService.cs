@@ -18,7 +18,9 @@ namespace LearnPortal.BLL.Services
         public CourseService(UserDTO currentUser)
         {
             _currentUser = currentUser;
-            _context = new ApplicationContext();
+            DbContextFactory contextFactory = new DbContextFactory();
+            _context = contextFactory.CreateDbContext();
+            //_context = new ApplicationContext();
             _courseRepo = new GenericRepository<Course>(_context);
             _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Course, CourseDTO>()).CreateMapper();
         }
