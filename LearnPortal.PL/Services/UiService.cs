@@ -91,16 +91,16 @@ namespace LearnPortal.PL.Services
             switch (menuItem)
             {
                 case 1:
-                    //await _bookService.CreateBook();
+                    //await _bookService.CreateBook(book);
                     break;
                 case 2:
-                    //_bookService.GetBook();
+                    //_bookService.GetBook(id);
                     break;
                 case 3:
-                    //await _bookService.UpdateBook();
+                    //await _bookService.UpdateBook(newBook);
                     break;
                 case 4:
-                    //await _bookService.DeleteBook();
+                    //await _bookService.DeleteBook(id);
                     break;
                 case 5:
                     //await _bookService.GetBooksAsync();
