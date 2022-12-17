@@ -1,4 +1,7 @@
-﻿using LearnPortal.DAL.Interfaces;
+﻿using LearnPortal.DAL.Entities.CourseType;
+using LearnPortal.DAL.Entities.MaterialType;
+using LearnPortal.DAL.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LearnPortal.BLL.DTO
 {
@@ -8,12 +11,16 @@ namespace LearnPortal.BLL.DTO
 
         public string UserName { get; set; }
 
+        public string Name { get; set; }
+
         public string Email { get; set; }
 
-        public IEnumerable<ICourse> FinishedCourses { get; set; }
+        public List<CourseDTO>? FinishedCourses { get; set; }
 
-        public IEnumerable<ICourse> InProgressCourses { get; set; }
+        public List<CourseDTO>? InProgressCourses { get; set; }
 
-        public IEnumerable<ISkill> Skills { get; set; }
+        public List<SkillDTO>? ReceivedSkills { get; set; }
+
+        public List<MaterialDTO>? FinishedMaterials { get; set; }
     }
 }
