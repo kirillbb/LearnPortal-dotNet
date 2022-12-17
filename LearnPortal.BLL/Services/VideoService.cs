@@ -20,7 +20,6 @@ namespace LearnPortal.BLL.Services
             _currentUser = currentUser;
             DbContextFactory contextFactory = new DbContextFactory();
             _context = contextFactory.CreateDbContext();
-            //_context = new ApplicationContext();
             _videoRepo = new GenericRepository<Video>(_context);
             _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Video, VideoDTO>()).CreateMapper();
         }
