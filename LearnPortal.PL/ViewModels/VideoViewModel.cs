@@ -1,6 +1,4 @@
-﻿using LearnPortal.DAL.Entities.CourseType;
-
-namespace LearnPortal.PL.ViewModels
+﻿namespace LearnPortal.PL.ViewModels
 {
     public class VideoViewModel : MaterialViewModel
     {

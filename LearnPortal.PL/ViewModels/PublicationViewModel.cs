@@ -1,6 +1,4 @@
-﻿using LearnPortal.BLL.DTO;
-
-namespace LearnPortal.PL.ViewModels
+﻿namespace LearnPortal.PL.ViewModels
 {
     public class PublicationViewModel : MaterialViewModel
     {
