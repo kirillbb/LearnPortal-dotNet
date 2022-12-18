@@ -1,4 +1,6 @@
-﻿namespace LearnPortal.PL.ViewModels
+﻿using LearnPortal.DAL.Entities.CourseType;
+
+namespace LearnPortal.PL.ViewModels
 {
     public class SkillViewModel
     {
@@ -13,5 +15,10 @@
         public Guid OwnerId { get; set; }
 
         public List<UserViewModel>? ReceivedUsers { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - Title: {Title} - Description: {Description} - OwnerId: {OwnerId}";
+        }
     }
 }

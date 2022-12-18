@@ -13,5 +13,10 @@
         public List<CourseViewModel>? Courses { get; set; }
 
         public Guid OwnerId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - Title: {Title} - Description: {Description} - [{Discriminator}]";
+        }
     }
 }

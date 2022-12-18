@@ -9,5 +9,10 @@
         public int Pages { get; set; }
 
         public string BookFormat { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - {Author} - Title: {Title}{BookFormat} - Description: {Description} - ({PublicationDate}) - {Pages} pages";
+        }
     }
 }

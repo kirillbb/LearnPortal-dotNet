@@ -1,4 +1,6 @@
-﻿namespace LearnPortal.PL.ViewModels
+﻿using LearnPortal.BLL.DTO;
+
+namespace LearnPortal.PL.ViewModels
 {
     public class CourseViewModel
     {
@@ -17,5 +19,10 @@
         public List<MaterialViewModel>? Materials { get; set; }
 
         public List<SkillViewModel>? Skills { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - Title: {Title} - Description: {Description} - OwnerId: {OwnerId}";
+        }
     }
 }
