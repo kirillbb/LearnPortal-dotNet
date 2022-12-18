@@ -1,9 +1,4 @@
-﻿using LearnPortal.DAL.Entities.CourseType;
-using LearnPortal.DAL.Entities.MaterialType;
-using LearnPortal.DAL.Interfaces;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace LearnPortal.BLL.DTO
+﻿namespace LearnPortal.BLL.DTO
 {
     public class UserDTO
     {
