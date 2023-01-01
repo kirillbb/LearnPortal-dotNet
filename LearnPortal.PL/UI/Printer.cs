@@ -48,6 +48,21 @@
             BreakLine();
         }
 
+        public static void ErrorMsg(string message = "")
+        {
+            Console.WriteLine($"Oops, something went wrong! {message}");
+        }
+
+        public static void Message(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        public static void Print(object obj)
+        {
+            Console.WriteLine(obj);
+        }
+
         public static void CrudMenu(string nameOfType)
         {
             BreakLine();
