@@ -7,13 +7,13 @@ namespace LearnPortal.BLL.Interfaces
     {
         Task CreatePublication(PublicationDTO publication);
 
-        Task DeletePublication(int id);
+        Task DeletePublication(Guid id);
 
         Task UpdatePublication(PublicationDTO publication);
 
         IEnumerable<PublicationDTO> FindPublication(Func<Publication, bool> predicate);
 
-        Task<PublicationDTO> GetPublication(int id);
+        Task<PublicationDTO> GetPublication(Guid id);
 
         Task<IEnumerable<PublicationDTO>> GetPublicationsAsync();
     }

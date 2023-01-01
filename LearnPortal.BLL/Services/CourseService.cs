@@ -41,7 +41,7 @@ namespace LearnPortal.BLL.Services
             await _courseRepo.CreateAsync(_mapper.Map<Course>(course));
         }
 
-        public async Task DeleteCourse(int id)
+        public async Task DeleteCourse(Guid id)
         {
             await _courseRepo.DeleteAsync(id);
         }
@@ -51,7 +51,7 @@ namespace LearnPortal.BLL.Services
             await _courseRepo.UpdateAsync(_mapper.Map<Course>(course));
         }
 
-        public async Task<CourseDTO> GetCourse(int id)
+        public async Task<CourseDTO> GetCourse(Guid id)
         {
             return _mapper.Map<CourseDTO>( await _courseRepo.GetAsync(id));
         }

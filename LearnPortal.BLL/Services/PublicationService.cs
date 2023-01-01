@@ -31,7 +31,7 @@ namespace LearnPortal.BLL.Services
             await _publicationRepo.CreateAsync(_mapper.Map<Publication>(publication));
         }
 
-        public async Task DeletePublication(int id)
+        public async Task DeletePublication(Guid id)
         {
             await _publicationRepo.DeleteAsync(id);
         }
@@ -41,7 +41,7 @@ namespace LearnPortal.BLL.Services
             return _mapper.Map<IEnumerable<Publication>, List<PublicationDTO>>(_publicationRepo.Find(predicate));
         }
 
-        public async Task<PublicationDTO> GetPublication(int id)
+        public async Task<PublicationDTO> GetPublication(Guid id)
         {
             return _mapper.Map<PublicationDTO>(await _publicationRepo.GetAsync(id));
         }

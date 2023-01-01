@@ -1,5 +1,4 @@
 ﻿using LearnPortal.BLL.DTO;
-using LearnPortal.DAL.Entities.CourseType;
 using LearnPortal.DAL.Entities.MaterialType;
 
 namespace LearnPortal.BLL.Interfaces
@@ -8,13 +7,13 @@ namespace LearnPortal.BLL.Interfaces
     {
         Task CreateBook(BookDTO book);
 
-        Task DeleteBook(int id);
+        Task DeleteBook(Guid id);
 
         Task UpdateBook(BookDTO book);
 
         IEnumerable<BookDTO> FindBook(Func<Book, bool> predicate);
 
-        Task<BookDTO> GetBook(int id);
+        Task<BookDTO> GetBook(Guid id);
 
         Task<IEnumerable<BookDTO>> GetBooksAsync();
     }

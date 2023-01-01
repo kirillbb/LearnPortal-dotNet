@@ -41,7 +41,7 @@ namespace LearnPortal.BLL.Services
             await _bookRepo.CreateAsync(_mapper.Map<Book>(book));
         }
 
-        public async Task DeleteBook(int id)
+        public async Task DeleteBook(Guid id)
         {
             await _bookRepo.DeleteAsync(id);
         }
@@ -51,7 +51,7 @@ namespace LearnPortal.BLL.Services
             await _bookRepo.UpdateAsync(_mapper.Map<Book>(book));
         }
 
-        public async Task<BookDTO> GetBook(int id)
+        public async Task<BookDTO> GetBook(Guid id)
         {
             return _mapper.Map<BookDTO>(await _bookRepo.GetAsync(id));
         }

@@ -7,13 +7,13 @@ namespace LearnPortal.BLL.Interfaces
     {
         Task CreateVideo(VideoDTO video);
 
-        Task DeleteVideo(int id);
+        Task DeleteVideo(Guid id);
 
         Task UpdateVideo(VideoDTO video);
 
         IEnumerable<VideoDTO> FindVideo(Func<Video, bool> predicate);
 
-        Task<VideoDTO> GetVideo(int id);
+        Task<VideoDTO> GetVideo(Guid id);
 
         Task<IEnumerable<VideoDTO>> GetVideosAsync();
     }

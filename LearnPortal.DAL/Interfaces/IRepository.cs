@@ -4,7 +4,7 @@
     {
         Task<IEnumerable<T>> GetAllAsync();
 
-        Task<T> GetAsync(int id);
+        Task<T> GetAsync(Guid id);
         
         IEnumerable<T> Find(Func<T, Boolean> predicate);
 
@@ -12,6 +12,6 @@
 
         Task UpdateAsync(T item);
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Guid id);
     }
 }

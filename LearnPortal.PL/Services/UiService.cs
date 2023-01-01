@@ -1,6 +1,5 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
-using LearnPortal.DAL.Entities.MaterialType;
 using LearnPortal.PL.UI;
 
 namespace LearnPortal.PL.Services

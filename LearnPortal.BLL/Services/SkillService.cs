@@ -31,7 +31,7 @@ namespace LearnPortal.BLL.Services
             await _skillRepo.CreateAsync(_mapper.Map<Skill>(skill));
         }
 
-        public async Task DeleteSkill(int id)
+        public async Task DeleteSkill(Guid id)
         {
             await _skillRepo.DeleteAsync(id);
         }
@@ -41,7 +41,7 @@ namespace LearnPortal.BLL.Services
             return _mapper.Map<IEnumerable<Skill>, List<SkillDTO>>(_skillRepo.Find(predicate));
         }
 
-        public async Task<SkillDTO> GetSkill(int id)
+        public async Task<SkillDTO> GetSkill(Guid id)
         {
             return _mapper.Map<SkillDTO>(await _skillRepo.GetAsync(id));
         }
