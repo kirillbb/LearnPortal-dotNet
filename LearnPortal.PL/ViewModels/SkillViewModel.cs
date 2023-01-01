@@ -13,5 +13,10 @@
         public Guid OwnerId { get; set; }
 
         public List<UserViewModel>? ReceivedUsers { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - Title: {Title} - Description: {Description} - OwnerId: {OwnerId}";
+        }
     }
 }

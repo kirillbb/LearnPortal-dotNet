@@ -17,5 +17,10 @@
         public List<MaterialViewModel>? Materials { get; set; }
 
         public List<SkillViewModel>? Skills { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - Title: {Title} - Description: {Description} - OwnerId: {OwnerId}";
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace LearnPortal.PL
     public class Starter
     {
         private UserDTO TestUser { get; set; }
+
         public Starter()
         {
             TestUser = new UserDTO()

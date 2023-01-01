@@ -17,5 +17,10 @@
         public List<SkillViewModel>? ReceivedSkills { get; set; }
 
         public List<MaterialViewModel>? FinishedMaterials { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Id} - Name: {Name} - {UserName} ({Email})";
+        }
     }
 }
