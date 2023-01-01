@@ -31,7 +31,7 @@ namespace LearnPortal.BLL.Services
             await _videoRepo.CreateAsync(_mapper.Map<Video>(video));
         }
 
-        public async Task DeleteVideo(int id)
+        public async Task DeleteVideo(Guid id)
         {
             await _videoRepo.DeleteAsync(id);
         }
@@ -41,7 +41,7 @@ namespace LearnPortal.BLL.Services
             return _mapper.Map<IEnumerable<Video>, List<VideoDTO>>(_videoRepo.Find(predicate));
         }
 
-        public async Task<VideoDTO> GetVideo(int id)
+        public async Task<VideoDTO> GetVideo(Guid id)
         {
             return _mapper.Map<VideoDTO>(await _videoRepo.GetAsync(id));
         }

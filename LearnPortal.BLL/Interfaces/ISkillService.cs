@@ -7,13 +7,13 @@ namespace LearnPortal.BLL.Interfaces
     {
         Task CreateSkill(SkillDTO skill);
 
-        Task DeleteSkill(int id);
+        Task DeleteSkill(Guid id);
 
         Task UpdateSkill(SkillDTO skill);
 
         IEnumerable<SkillDTO> FindSkill(Func<Skill, bool> predicate);
 
-        Task<SkillDTO> GetSkill(int id);
+        Task<SkillDTO> GetSkill(Guid id);
 
         Task<IEnumerable<SkillDTO>> GetSkillsAsync();
     }

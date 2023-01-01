@@ -7,13 +7,13 @@ namespace LearnPortal.BLL.Interfaces
     {
         Task CreateCourse(CourseDTO course);
 
-        Task DeleteCourse(int id);
+        Task DeleteCourse(Guid id);
 
         Task UpdateCourse(CourseDTO course);
 
         IEnumerable<CourseDTO> FindCourse(Func<Course, bool> predicate);
 
-        Task<CourseDTO> GetCourse(int id);
+        Task<CourseDTO> GetCourse(Guid id);
 
         Task<IEnumerable<CourseDTO>> GetCoursesAsync();
     }

@@ -21,7 +21,7 @@ namespace LearnPortal.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var course = await GetAsync(id);
             _dbSet.Remove(course);
@@ -33,7 +33,7 @@ namespace LearnPortal.DAL.Repository
             return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public async Task<TEntity> GetAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
