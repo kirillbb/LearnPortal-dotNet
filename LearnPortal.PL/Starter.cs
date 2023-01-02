@@ -19,7 +19,7 @@ namespace LearnPortal.PL
 
         public async Task RunAsync()
         {
-            UiService uiService = new UiService(TestUser);
+            MenuService uiService = new MenuService(TestUser);
             await uiService.Start();
         }
     }

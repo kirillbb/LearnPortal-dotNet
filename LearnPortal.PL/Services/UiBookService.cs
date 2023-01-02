@@ -1,22 +1,26 @@
 ﻿using AutoMapper;
 using LearnPortal.BLL.DTO;
+using LearnPortal.BLL.Services;
 using LearnPortal.PL.UI;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    public class BookController
+    public class UiBookService
     {
         private IMapper _mapper;
+        private readonly BookService _bookService;
+        public UserDTO CurrentUser { get; private set; }
 
-        public BookController()
+        public UiBookService(UserDTO currentUser)
         {
             _mapper = new MapperConfiguration(cfg => cfg.CreateMap<BookViewModel, BookDTO>()).CreateMapper();
+            _bookService = new BookService(currentUser);
+            CurrentUser = currentUser;
         }
 
-        public BookDTO? CreateBook(UserDTO currentUser)
+        public async Task CreateBookAsync()
         {
-
             try
             {
                 Printer.Message("Enter a Title of a book:");
@@ -37,23 +41,37 @@ namespace LearnPortal.PL.Services
                     Author = author,
                     Pages = pages,
                     BookFormat = format,
-                    OwnerId = currentUser.Id,
+                    OwnerId = CurrentUser.Id,
                 };
 
                 Printer.BreakLine();
-                return _mapper.Map<BookDTO>(book);
+                if (book != null)
+                {
+                    await _bookService.CreateBook(_mapper.Map<BookDTO>(book));
+                }
+                else
+                {
+                    Printer.ErrorMsg("Try again");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Printer.ErrorMsg(ex.Message);
             }
-
-            return null;
         }
 
-        public void ShowBook(BookDTO book)
+        public async Task ShowBookAsync()
         {
-            Printer.Print(_mapper.Map<BookViewModel>(book));
+            var id = UserInputService.GetId();
+            if (id != Guid.Empty)
+            {
+                var book = await _bookService.GetBook(id);
+                Printer.Print(_mapper.Map<BookViewModel>(book));
+            }
+            else
+            {
+                Printer.ErrorMsg("Incorrect Id");
+            }
         }
     }
 }
