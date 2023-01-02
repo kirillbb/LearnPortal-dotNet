@@ -1,6 +1,5 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
-using LearnPortal.PL.UI;
 
 namespace LearnPortal.PL.Services
 {
@@ -29,7 +28,7 @@ namespace LearnPortal.PL.Services
 
         private async Task GeneralMenuAsync()
         {
-            Printer.GeneralMenu();
+            PrinterService.GeneralMenu();
             switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
@@ -57,7 +56,7 @@ namespace LearnPortal.PL.Services
 
         private async Task ChooseMaterialMenuAsync()
         {
-            Printer.ChooseMaterialTypeMenu();
+            PrinterService.ChooseMaterialTypeMenu();
             switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
@@ -83,7 +82,7 @@ namespace LearnPortal.PL.Services
 
         private async Task BookOperationMenuAsync()
         {
-            Printer.CrudMenu("book");
+            PrinterService.CrudMenu("book");
             UiBookService bookService = new UiBookService(CurrentUser);
             switch (UserInputService.GetMenuItemNumber())
             {
@@ -118,7 +117,7 @@ namespace LearnPortal.PL.Services
 
         private async Task VideoOperationMenuAsync()
         {
-            Printer.CrudMenu("video");
+            PrinterService.CrudMenu("video");
             switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
@@ -150,7 +149,7 @@ namespace LearnPortal.PL.Services
 
         private async Task PublicationOperationMenuAsync()
         {
-            Printer.CrudMenu("publication");
+            PrinterService.CrudMenu("publication");
             switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:

@@ -1,16 +1,14 @@
-﻿using LearnPortal.PL.UI;
-
-namespace LearnPortal.PL.Services
+﻿namespace LearnPortal.PL.Services
 {
     public static class UserInputService
     {
         public static Guid GetId()
         {
-            Printer.Message("Enter id:");
+            PrinterService.Message("Enter id:");
             Guid id = Guid.Empty;
             Guid.TryParse(Console.ReadLine(), out id);
 
-            Printer.BreakLine();
+            PrinterService.BreakLine();
             return id;
         }
 
@@ -21,7 +19,7 @@ namespace LearnPortal.PL.Services
             {
             }
 
-            Printer.BreakLine();
+            PrinterService.BreakLine();
             return menuItem;
         }
 

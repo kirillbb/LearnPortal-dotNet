@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
-using LearnPortal.PL.UI;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
@@ -23,15 +22,15 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                Printer.Message("Enter a Title of a book:");
+                PrinterService.Message("Enter a Title of a book:");
                 string title = Console.ReadLine();
-                Printer.Message("Enter a Author of a book:");
+                PrinterService.Message("Enter a Author of a book:");
                 string author = Console.ReadLine();
-                Printer.Message("Enter a count of pages of a book:");
+                PrinterService.Message("Enter a count of pages of a book:");
                 int pages = int.Parse(Console.ReadLine());
-                Printer.Message("Enter a format of a book:");
+                PrinterService.Message("Enter a format of a book:");
                 string format = Console.ReadLine();
-                Printer.Message("Enter a publication date of a book:");
+                PrinterService.Message("Enter a publication date of a book:");
                 DateTime date = DateTime.Parse(Console.ReadLine());
 
                 BookViewModel book = new BookViewModel
@@ -44,19 +43,19 @@ namespace LearnPortal.PL.Services
                     OwnerId = CurrentUser.Id,
                 };
 
-                Printer.BreakLine();
+                PrinterService.BreakLine();
                 if (book != null)
                 {
                     await _bookService.CreateBook(_mapper.Map<BookDTO>(book));
                 }
                 else
                 {
-                    Printer.ErrorMsg("Try again");
+                    PrinterService.ErrorMsg("Try again");
                 }
             }
             catch (Exception ex)
             {
-                Printer.ErrorMsg(ex.Message);
+                PrinterService.ErrorMsg(ex.Message);
             }
         }
 
@@ -66,11 +65,11 @@ namespace LearnPortal.PL.Services
             if (id != Guid.Empty)
             {
                 var book = await _bookService.GetBook(id);
-                Printer.Print(_mapper.Map<BookViewModel>(book));
+                PrinterService.Print(_mapper.Map<BookViewModel>(book));
             }
             else
             {
-                Printer.ErrorMsg("Incorrect Id");
+                PrinterService.ErrorMsg("Incorrect Id");
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿namespace LearnPortal.PL.UI
+﻿namespace LearnPortal.PL.Services
 {
-    public static class Printer
+    public static class PrinterService
     {
         public static void GeneralMenu()
         {
