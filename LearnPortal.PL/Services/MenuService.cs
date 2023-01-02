@@ -4,19 +4,18 @@ using LearnPortal.PL.UI;
 
 namespace LearnPortal.PL.Services
 {
-    public class UiService
+    public class MenuService
     {
-        private readonly BookService _bookService;
         private readonly VideoService _videoService;
         private readonly PublicationService _publicationService;
         private readonly CourseService _courseService;
         private readonly SkillService _skillService;
         public UserDTO CurrentUser { get; private set; }
 
-        public UiService(UserDTO currentUser)
+        public MenuService(UserDTO currentUser)
         {
             CurrentUser = currentUser;
-            _bookService = new BookService(currentUser);
+
             _videoService = new VideoService(currentUser);
             _publicationService = new PublicationService(currentUser);
             _courseService = new CourseService(currentUser);
@@ -31,8 +30,7 @@ namespace LearnPortal.PL.Services
         private async Task GeneralMenuAsync()
         {
             Printer.GeneralMenu();
-            int menuItem = MenuController();
-            switch (menuItem)
+            switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
                     ChooseMaterialMenuAsync();
@@ -60,8 +58,7 @@ namespace LearnPortal.PL.Services
         private async Task ChooseMaterialMenuAsync()
         {
             Printer.ChooseMaterialTypeMenu();
-            int menuItem = MenuController();
-            switch (menuItem)
+            switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
                     BookOperationMenuAsync();
@@ -87,40 +84,17 @@ namespace LearnPortal.PL.Services
         private async Task BookOperationMenuAsync()
         {
             Printer.CrudMenu("book");
-            int menuItem = MenuController();
-            BookController bookController = new BookController();
-            switch (menuItem)
+            UiBookService bookService = new UiBookService(CurrentUser);
+            switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
-                    {
-                        var book = bookController.CreateBook(CurrentUser);
-                        if (book != null)
-                        {
-                            await _bookService.CreateBook(book);
-                        }
-                        else
-                        {
-                            Printer.ErrorMsg("Try again");
-                            await BookOperationMenuAsync();
-                        }
-
-                        break;
-                    }
+                    await bookService.CreateBookAsync();
+                    await BookOperationMenuAsync();
+                    break;
                 case 2:
-                    {
-                        var id = GetId();
-                        if (id != Guid.Empty)
-                        {
-                            bookController.ShowBook(await _bookService.GetBook(id));
-                        }
-                        else
-                        {
-                            Printer.ErrorMsg("Incorrect Id");
-                            await BookOperationMenuAsync();
-                        }
-
-                        break;
-                    }
+                    await bookService.ShowBookAsync();
+                    await BookOperationMenuAsync();
+                    break;
                 case 3:
                     //await _bookService.UpdateBook(newBook);
                     break;
@@ -145,8 +119,7 @@ namespace LearnPortal.PL.Services
         private async Task VideoOperationMenuAsync()
         {
             Printer.CrudMenu("video");
-            int menuItem = MenuController();
-            switch (menuItem)
+            switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
                     //await _videoService.CreateVideo();
@@ -178,8 +151,7 @@ namespace LearnPortal.PL.Services
         private async Task PublicationOperationMenuAsync()
         {
             Printer.CrudMenu("publication");
-            int menuItem = MenuController();
-            switch (menuItem)
+            switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
                     //await _publicationService.CreatePublication();
@@ -208,27 +180,8 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public Guid GetId()
-        {
-            Printer.Message("Enter id:");
-            Guid id = Guid.Empty;
-            Guid.TryParse(Console.ReadLine(), out id);
 
-            Printer.BreakLine();
-            Printer.BreakLine();
-            return id;
-        }
 
-        private int MenuController()
-        {
-            int menuItem;
-            while (!int.TryParse(Console.ReadLine(), out menuItem))
-            {
-            }
-
-            Printer.BreakLine();
-            Printer.BreakLine();
-            return menuItem;
-        }
+        
     }
 }
