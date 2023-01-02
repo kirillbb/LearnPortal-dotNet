@@ -95,13 +95,16 @@ namespace LearnPortal.PL.Services
                     await BookOperationMenuAsync();
                     break;
                 case 3:
-                    //await _bookService.UpdateBook(newBook);
+                    await bookService.UpdateBookAsync();
+                    await BookOperationMenuAsync();
                     break;
                 case 4:
-                    //await _bookService.DeleteBook(id);
+                    await bookService.DeleteBookAsync();
+                    await BookOperationMenuAsync();
                     break;
                 case 5:
-                    //await _bookService.GetBooksAsync();
+                    await bookService.GetAllBooksAsync();
+                    await BookOperationMenuAsync();
                     break;
                 case 9:
                     await ChooseMaterialMenuAsync();

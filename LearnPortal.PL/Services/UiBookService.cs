@@ -72,5 +72,20 @@ namespace LearnPortal.PL.Services
                 PrinterService.ErrorMsg("Incorrect Id");
             }
         }
+
+        internal Task UpdateBookAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Task DeleteBookAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Task GetAllBooksAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
