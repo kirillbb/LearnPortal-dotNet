@@ -18,30 +18,35 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
+        public BookViewModel EnteringBookFields()
+        {
+            PrinterService.Message("Enter a Title of a book:");
+            string title = Console.ReadLine();
+            PrinterService.Message("Enter a Author of a book:");
+            string author = Console.ReadLine();
+            PrinterService.Message("Enter a count of pages of a book:");
+            int pages = int.Parse(Console.ReadLine());
+            PrinterService.Message("Enter a format of a book:");
+            string format = Console.ReadLine();
+            PrinterService.Message("Enter a publication date of a book:");
+            DateTime date = DateTime.Parse(Console.ReadLine());
+
+            return new BookViewModel
+            {
+                Title = title,
+                Author = author,
+                Pages = pages,
+                BookFormat = format,
+                OwnerId = CurrentUser.Id,
+            };
+        }
+
         public async Task CreateBookAsync()
         {
             try
             {
-                PrinterService.Message("Enter a Title of a book:");
-                string title = Console.ReadLine();
-                PrinterService.Message("Enter a Author of a book:");
-                string author = Console.ReadLine();
-                PrinterService.Message("Enter a count of pages of a book:");
-                int pages = int.Parse(Console.ReadLine());
-                PrinterService.Message("Enter a format of a book:");
-                string format = Console.ReadLine();
-                PrinterService.Message("Enter a publication date of a book:");
-                DateTime date = DateTime.Parse(Console.ReadLine());
-
-                BookViewModel book = new BookViewModel
-                {
-                    Id = Guid.NewGuid(),
-                    Title = title,
-                    Author = author,
-                    Pages = pages,
-                    BookFormat = format,
-                    OwnerId = CurrentUser.Id,
-                };
+                BookViewModel book = EnteringBookFields();
+                book.Id = Guid.NewGuid();
 
                 PrinterService.BreakLine();
                 if (book != null)
