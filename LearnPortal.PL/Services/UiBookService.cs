@@ -82,7 +82,7 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                Guid id = UserInputService.GetId();
+                var id = UserInputService.GetId();
                 BookViewModel book = EnteringBookFields();
                 book.Id = id;
 
