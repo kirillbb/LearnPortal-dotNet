@@ -102,9 +102,17 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        internal Task DeleteBookAsync()
+        public async Task DeleteBookAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var id = UserInputService.GetId();
+                await _bookService.DeleteBook(id);
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
         }
 
         internal Task GetAllBooksAsync()
