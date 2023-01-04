@@ -78,9 +78,28 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        internal Task UpdateBookAsync()
+        public async Task UpdateBookAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Guid id = UserInputService.GetId();
+                BookViewModel book = EnteringBookFields();
+                book.Id = id;
+
+                PrinterService.BreakLine();
+                if (book != null)
+                {
+                    await _bookService.UpdateBook(_mapper.Map<BookDTO>(book));
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
         }
 
         internal Task DeleteBookAsync()
