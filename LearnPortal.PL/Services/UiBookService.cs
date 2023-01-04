@@ -78,19 +78,64 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        internal Task UpdateBookAsync()
+        public async Task UpdateBookAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var id = UserInputService.GetId();
+                BookViewModel book = EnteringBookFields();
+                book.Id = id;
+
+                PrinterService.BreakLine();
+                if (book != null)
+                {
+                    await _bookService.UpdateBook(_mapper.Map<BookDTO>(book));
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
         }
 
-        internal Task DeleteBookAsync()
+        public async Task DeleteBookAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var id = UserInputService.GetId();
+                await _bookService.DeleteBook(id);
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
         }
 
-        internal Task GetAllBooksAsync()
+        public async Task GetAllBooksAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<BookViewModel> books = _mapper.Map<List<BookViewModel>>(await _bookService.GetBooksAsync());
+                if (books != null)
+                {
+                    foreach (var book in books)
+                    {
+                        PrinterService.Print(book);
+                    }
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Empty List!");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
         }
     }
 }
