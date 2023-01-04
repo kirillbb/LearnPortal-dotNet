@@ -115,9 +115,27 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        internal Task GetAllBooksAsync()
+        public async Task GetAllBooksAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<BookViewModel> books = _mapper.Map<List<BookViewModel>>(await _bookService.GetBooksAsync());
+                if (books != null)
+                {
+                    foreach (var book in books)
+                    {
+                        PrinterService.Print(book);
+                    }
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Empty List!");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
         }
     }
 }
