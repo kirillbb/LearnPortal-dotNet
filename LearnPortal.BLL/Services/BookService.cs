@@ -36,7 +36,7 @@ namespace LearnPortal.BLL.Services
 
         public async Task CreateBook(BookDTO book)
         {
-            book.Id = new Guid();
+            //book.Id = new Guid();
             book.OwnerId = _currentUser.Id;
             await _bookRepo.CreateAsync(_mapper.Map<Book>(book));
         }
