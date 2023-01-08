@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using LearnPortal.BLL.DTO;
+﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Interfaces;
 using LearnPortal.DAL.Data;
 using LearnPortal.DAL.Entities.MaterialType;
@@ -13,7 +12,6 @@ namespace LearnPortal.BLL.Services
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
         private IRepository<Publication> _publicationRepo;
-        private IMapper _mapper;
 
         public PublicationService(UserDTO currentUser)
         {
@@ -21,14 +19,19 @@ namespace LearnPortal.BLL.Services
             DbContextFactory contextFactory = new DbContextFactory();
             _context = contextFactory.CreateDbContext();
             _publicationRepo = new GenericRepository<Publication>(_context);
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Publication, PublicationDTO>()).CreateMapper();
         }
 
         public async Task CreatePublication(PublicationDTO publication)
         {
-            publication.Id = new Guid();
-            publication.OwnerId = _currentUser.Id;
-            await _publicationRepo.CreateAsync(_mapper.Map<Publication>(publication));
+            await _publicationRepo.CreateAsync(new Publication
+            {
+                Id = new Guid(),
+                Title = publication.Title,
+                CreationDate = publication.CreationDate,
+                Discriminator = "Publication",
+                Description = publication.Description,
+                OwnerId = _currentUser.Id,
+            });
         }
 
         public async Task DeletePublication(Guid id)
@@ -38,22 +41,69 @@ namespace LearnPortal.BLL.Services
 
         public IEnumerable<PublicationDTO> FindPublication(Func<Publication, bool> predicate)
         {
-            return _mapper.Map<IEnumerable<Publication>, List<PublicationDTO>>(_publicationRepo.Find(predicate));
+            var publications = _publicationRepo.Find(predicate);
+            List<PublicationDTO> publicationDTOs = new List<PublicationDTO>();
+            foreach (var publication in publications)
+            {
+                PublicationDTO publicationDTO = new PublicationDTO
+                {
+                    Id = publication.Id,
+                    Title = publication.Title,
+                    CreationDate = publication.CreationDate,
+                    Description = publication.Description,
+                    OwnerId = publication.OwnerId,
+                };
+
+                publicationDTOs.Add(publicationDTO);
+            }
+
+            return publicationDTOs;
         }
 
         public async Task<PublicationDTO> GetPublication(Guid id)
         {
-            return _mapper.Map<PublicationDTO>(await _publicationRepo.GetAsync(id));
+            var publication = await _publicationRepo.GetAsync(id);
+            return new PublicationDTO
+            {
+                Id = publication.Id,
+                Title = publication.Title,
+                CreationDate = publication.CreationDate,
+                Description = publication.Description,
+                OwnerId = publication.OwnerId,
+            };
         }
 
         public async Task<IEnumerable<PublicationDTO>> GetPublicationsAsync()
         {
-            return _mapper.Map<IEnumerable<Publication>, List<PublicationDTO>>(await _publicationRepo.GetAllAsync());
+            var publications = await _publicationRepo.GetAllAsync();
+            List<PublicationDTO> publicationDTOs = new List<PublicationDTO>();
+            foreach (var publication in publications)
+            {
+                PublicationDTO publicationDTO = new PublicationDTO
+                {
+                    Id = publication.Id,
+                    Title = publication.Title,
+                    CreationDate = publication.CreationDate,
+                    Description = publication.Description,
+                    OwnerId = publication.OwnerId,
+                };
+
+                publicationDTOs.Add(publicationDTO);
+            }
+
+            return publicationDTOs;
         }
 
         public async Task UpdatePublication(PublicationDTO publication)
         {
-            await _publicationRepo.UpdateAsync(_mapper.Map<Publication>(publication));
+            await _publicationRepo.UpdateAsync(new Publication
+            {
+                Id = publication.Id,
+                Title = publication.Title,
+                CreationDate = publication.CreationDate,
+                Description = publication.Description,
+                OwnerId = publication.OwnerId,
+            });
         }
     }
 }

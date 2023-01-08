@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using LearnPortal.BLL.DTO;
+﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Interfaces;
 using LearnPortal.DAL.Data;
 using LearnPortal.DAL.Entities.CourseType;
@@ -13,7 +12,6 @@ namespace LearnPortal.BLL.Services
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
         private IRepository<Course> _courseRepo;
-        private IMapper _mapper;
 
         public CourseService(UserDTO currentUser)
         {
@@ -21,24 +19,57 @@ namespace LearnPortal.BLL.Services
             DbContextFactory contextFactory = new DbContextFactory();
             _context = contextFactory.CreateDbContext();
             _courseRepo = new GenericRepository<Course>(_context);
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Course, CourseDTO>()).CreateMapper();
         }
 
         public IEnumerable<CourseDTO> FindCourse(Func<Course, bool> predicate)
         {
-            return _mapper.Map<IEnumerable<Course>, List<CourseDTO>>( _courseRepo.Find(predicate));
+            var courses = _courseRepo.Find(predicate);
+            List<CourseDTO> coursesDto = new List<CourseDTO>();
+            foreach (var course in courses)
+            {
+                CourseDTO courseDTO = new CourseDTO
+                {
+                    Description = course.Description,
+                    Id = course.Id,
+                    OwnerId = course.OwnerId,
+                    Title = course.Title,
+                };
+
+                coursesDto.Add(courseDTO);
+            }
+
+            return coursesDto;
         }
 
         public async Task<IEnumerable<CourseDTO>> GetCoursesAsync()
         {
-            return _mapper.Map<IEnumerable<Course>, List<CourseDTO>>(await _courseRepo.GetAllAsync());
+            var courses = await _courseRepo.GetAllAsync();
+            List<CourseDTO> coursesDto = new List<CourseDTO>();
+            foreach (var course in courses)
+            {
+                CourseDTO courseDTO = new CourseDTO
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Description = course.Description,
+                    OwnerId = course.OwnerId,
+                };
+
+                coursesDto.Add(courseDTO);
+            }
+
+            return coursesDto;
         }
 
         public async Task CreateCourse(CourseDTO course)
         {
-            course.Id = new Guid();
-            course.OwnerId = _currentUser.Id;
-            await _courseRepo.CreateAsync(_mapper.Map<Course>(course));
+            await _courseRepo.CreateAsync(new Course
+            {
+                Id = new Guid(),
+                Title = course.Title,
+                Description = course.Description,
+                OwnerId = _currentUser.Id,
+            });
         }
 
         public async Task DeleteCourse(Guid id)
@@ -48,12 +79,25 @@ namespace LearnPortal.BLL.Services
 
         public async Task UpdateCourse(CourseDTO course)
         {
-            await _courseRepo.UpdateAsync(_mapper.Map<Course>(course));
+            await _courseRepo.UpdateAsync(new Course 
+            {
+                Id = course.Id,
+                Title = course.Title,
+                Description = course.Description,
+                OwnerId = course.OwnerId,
+            });
         }
 
         public async Task<CourseDTO> GetCourse(Guid id)
         {
-            return _mapper.Map<CourseDTO>( await _courseRepo.GetAsync(id));
+            var course = await _courseRepo.GetAsync(id);
+            return new CourseDTO
+            {
+                Id = course.Id,
+                Title = course.Title,
+                Description = course.Description,
+                OwnerId = course.OwnerId,
+            };
         }
     }
 }
