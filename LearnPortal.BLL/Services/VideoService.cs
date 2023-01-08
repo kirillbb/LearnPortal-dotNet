@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using LearnPortal.BLL.DTO;
+﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Interfaces;
 using LearnPortal.DAL.Data;
 using LearnPortal.DAL.Entities.MaterialType;
 using LearnPortal.DAL.Interfaces;
 using LearnPortal.DAL.Repository;
+using System;
 
 namespace LearnPortal.BLL.Services
 {
@@ -13,7 +13,6 @@ namespace LearnPortal.BLL.Services
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
         private IRepository<Video> _videoRepo;
-        private IMapper _mapper;
 
         public VideoService(UserDTO currentUser)
         {
@@ -21,14 +20,20 @@ namespace LearnPortal.BLL.Services
             DbContextFactory contextFactory = new DbContextFactory();
             _context = contextFactory.CreateDbContext();
             _videoRepo = new GenericRepository<Video>(_context);
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Video, VideoDTO>()).CreateMapper();
         }
 
         public async Task CreateVideo(VideoDTO video)
         {
-            video.Id = new Guid();
-            video.OwnerId = _currentUser.Id;
-            await _videoRepo.CreateAsync(_mapper.Map<Video>(video));
+            await _videoRepo.CreateAsync(new Video
+            {
+                Id = new Guid(),
+                Title = video.Title,
+                Discriminator = "Video",
+                Description = video.Description,
+                OwnerId = _currentUser.Id,
+                Duration = video.Duration,
+                Resolution = video.Resolution,
+            });
         }
 
         public async Task DeleteVideo(Guid id)
@@ -38,22 +43,77 @@ namespace LearnPortal.BLL.Services
 
         public IEnumerable<VideoDTO> FindVideo(Func<Video, bool> predicate)
         {
-            return _mapper.Map<IEnumerable<Video>, List<VideoDTO>>(_videoRepo.Find(predicate));
+            var videos = _videoRepo.Find(predicate);
+            List<VideoDTO> videoDTOs = new List<VideoDTO>();
+            foreach (var video in videos)
+            {
+                VideoDTO videoDTO = new VideoDTO
+                {
+                    Id = video.Id,
+                    Title = video.Title,
+                    Discriminator = video.Discriminator,
+                    Description = video.Description,
+                    OwnerId = video.OwnerId,
+                    Duration = video.Duration,
+                    Resolution = video.Resolution,
+                };
+
+                videoDTOs.Add(videoDTO);
+            }
+
+            return videoDTOs;
         }
 
         public async Task<VideoDTO> GetVideo(Guid id)
         {
-            return _mapper.Map<VideoDTO>(await _videoRepo.GetAsync(id));
+            var video = await _videoRepo.GetAsync(id);
+            return new VideoDTO
+            {
+                Id = video.Id,
+                Title = video.Title,
+                Discriminator = video.Discriminator,
+                Description = video.Description,
+                OwnerId = video.OwnerId,
+                Duration = video.Duration,
+                Resolution = video.Resolution,
+            };
         }
 
         public async Task<IEnumerable<VideoDTO>> GetVideosAsync()
         {
-            return _mapper.Map<IEnumerable<Video>, List<VideoDTO>>(await _videoRepo.GetAllAsync());
+            var videos = await _videoRepo.GetAllAsync();
+            List<VideoDTO> videoDTOs = new List<VideoDTO>();
+            foreach (var video in videos)
+            {
+                VideoDTO videoDTO = new VideoDTO
+                {
+                    Id = video.Id,
+                    Title = video.Title,
+                    Discriminator = video.Discriminator,
+                    Description = video.Description,
+                    OwnerId = video.OwnerId,
+                    Duration = video.Duration,
+                    Resolution = video.Resolution,
+                };
+
+                videoDTOs.Add(videoDTO);
+            }
+
+            return videoDTOs;
         }
 
         public async Task UpdateVideo(VideoDTO video)
         {
-            await _videoRepo.UpdateAsync(_mapper.Map<Video>(video));
+            await _videoRepo.UpdateAsync(new Video
+            {
+                Id = video.Id,
+                Title = video.Title,
+                Discriminator = video.Discriminator,
+                Description = video.Description,
+                OwnerId = video.OwnerId,
+                Duration = video.Duration,
+                Resolution = video.Resolution,
+            });
         }
     }
 }

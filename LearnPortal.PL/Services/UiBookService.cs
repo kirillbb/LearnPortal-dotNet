@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using LearnPortal.BLL.DTO;
+﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
 using LearnPortal.PL.ViewModels;
 
@@ -7,13 +6,11 @@ namespace LearnPortal.PL.Services
 {
     public class UiBookService
     {
-        private IMapper _mapper;
         private readonly BookService _bookService;
         public UserDTO CurrentUser { get; private set; }
 
         public UiBookService(UserDTO currentUser)
         {
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<BookViewModel, BookDTO>()).CreateMapper();
             _bookService = new BookService(currentUser);
             CurrentUser = currentUser;
         }
@@ -22,6 +19,8 @@ namespace LearnPortal.PL.Services
         {
             PrinterService.Message("Enter a Title of a book:");
             string title = Console.ReadLine();
+            PrinterService.Message("Enter a Description of a book:");
+            string description = Console.ReadLine();
             PrinterService.Message("Enter a Author of a book:");
             string author = Console.ReadLine();
             PrinterService.Message("Enter a count of pages of a book:");
@@ -34,10 +33,11 @@ namespace LearnPortal.PL.Services
             return new BookViewModel
             {
                 Title = title,
+                Description = description,
                 Author = author,
                 Pages = pages,
                 BookFormat = format,
-                OwnerId = CurrentUser.Id,
+                PublicationDate = date,
             };
         }
 
@@ -46,12 +46,19 @@ namespace LearnPortal.PL.Services
             try
             {
                 BookViewModel book = EnteringBookFields();
-                book.Id = Guid.NewGuid();
 
                 PrinterService.BreakLine();
                 if (book != null)
                 {
-                    await _bookService.CreateBook(_mapper.Map<BookDTO>(book));
+                    await _bookService.CreateBook(new BookDTO
+                    {
+                        Author = book.Author,
+                        Title = book.Title,
+                        Description = book.Description,
+                        BookFormat = book.BookFormat,
+                        Pages = book.Pages,
+                        PublicationDate = book.PublicationDate,
+                    });
                 }
                 else
                 {
@@ -70,7 +77,17 @@ namespace LearnPortal.PL.Services
             if (id != Guid.Empty)
             {
                 var book = await _bookService.GetBook(id);
-                PrinterService.Print(_mapper.Map<BookViewModel>(book));
+                PrinterService.Print(new BookViewModel
+                {
+                    Id = book.Id,
+                    OwnerId = book.Id,
+                    Author = book.Author,
+                    Title = book.Title,
+                    Description = book.Description,
+                    BookFormat = book.BookFormat,
+                    Pages = book.Pages,
+                    PublicationDate = book.PublicationDate,
+                });
             }
             else
             {
@@ -89,7 +106,15 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (book != null)
                 {
-                    await _bookService.UpdateBook(_mapper.Map<BookDTO>(book));
+                    await _bookService.UpdateBook(new BookDTO
+                    {
+                        Author = book.Author,
+                        Title = book.Title,
+                        Description = book.Description,
+                        BookFormat = book.BookFormat,
+                        Pages = book.Pages,
+                        PublicationDate = book.PublicationDate,
+                    });
                 }
                 else
                 {
@@ -119,12 +144,22 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                List<BookViewModel> books = _mapper.Map<List<BookViewModel>>(await _bookService.GetBooksAsync());
+                var books = await _bookService.GetBooksAsync();
                 if (books != null)
                 {
                     foreach (var book in books)
                     {
-                        PrinterService.Print(book);
+                        PrinterService.Print(new BookViewModel
+                        {
+                            Id = book.Id,
+                            OwnerId = book.Id,
+                            Author = book.Author,
+                            Title = book.Title,
+                            Description = book.Description,
+                            BookFormat = book.BookFormat,
+                            Pages = book.Pages,
+                            PublicationDate = book.PublicationDate,
+                        });
                     }
                 }
                 else

@@ -17,8 +17,16 @@ namespace LearnPortal.DAL.Repository
 
         public async Task CreateAsync(TEntity item)
         {
-            await _dbSet.AddAsync(item);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _dbSet.AddAsync(item);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
         }
 
         public async Task DeleteAsync(Guid id)

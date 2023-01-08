@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using LearnPortal.BLL.DTO;
+﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Interfaces;
 using LearnPortal.DAL.Data;
 using LearnPortal.DAL.Entities.MaterialType;
@@ -13,7 +12,6 @@ namespace LearnPortal.BLL.Services
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
         private IRepository<Book> _bookRepo;
-        private IMapper _mapper;
 
         public BookService(UserDTO currentUser)
         {
@@ -21,24 +19,72 @@ namespace LearnPortal.BLL.Services
             DbContextFactory contextFactory = new DbContextFactory();
             _context = contextFactory.CreateDbContext();
             _bookRepo = new GenericRepository<Book>(_context);
-            _mapper = new MapperConfiguration(cfg => cfg.CreateMap<Book, BookDTO>()).CreateMapper();
         }
 
         public IEnumerable<BookDTO> FindBook(Func<Book, bool> predicate)
         {
-            return _mapper.Map<IEnumerable<Book>, List<BookDTO>>(_bookRepo.Find(predicate));
+            var books = _bookRepo.Find(predicate);
+            List<BookDTO> bookDTOs = new List<BookDTO>();
+            foreach (var book in books)
+            {
+                BookDTO bookDTO = new BookDTO
+                {
+                    Id = book.Id,
+                    OwnerId = book.Id,
+                    Discriminator = book.Discriminator,
+                    Author = book.Author,
+                    Title = book.Title,
+                    Description = book.Description,
+                    BookFormat = book.BookFormat,
+                    Pages = book.Pages,
+                    PublicationDate = book.PublicationDate,
+                };
+
+                bookDTOs.Add(bookDTO);
+            }
+
+            return bookDTOs;
         }
 
         public async Task<IEnumerable<BookDTO>> GetBooksAsync()
         {
-            return _mapper.Map<IEnumerable<Book>, List<BookDTO>>(await _bookRepo.GetAllAsync());
+            var books = await _bookRepo.GetAllAsync();
+            List<BookDTO> bookDTOs = new List<BookDTO>();
+            foreach (var book in books)
+            {
+                BookDTO bookDTO = new BookDTO
+                {
+                    Id = book.Id,
+                    OwnerId = book.Id,
+                    Discriminator = book.Discriminator,
+                    Author = book.Author,
+                    Title = book.Title,
+                    Description = book.Description,
+                    BookFormat = book.BookFormat,
+                    Pages = book.Pages,
+                    PublicationDate = book.PublicationDate,
+                };
+
+                bookDTOs.Add(bookDTO);
+            }
+
+            return bookDTOs;
         }
 
         public async Task CreateBook(BookDTO book)
         {
-            //book.Id = new Guid();
-            book.OwnerId = _currentUser.Id;
-            await _bookRepo.CreateAsync(_mapper.Map<Book>(book));
+            await _bookRepo.CreateAsync(new Book
+            {
+                Id = Guid.NewGuid(),
+                OwnerId = _currentUser.Id,
+                Discriminator = "Book",
+                Author = book.Author,
+                Title = book.Title,
+                Description = book.Description,
+                BookFormat = book.BookFormat,
+                Pages = book.Pages,
+                PublicationDate = book.PublicationDate,
+            });
         }
 
         public async Task DeleteBook(Guid id)
@@ -48,12 +94,35 @@ namespace LearnPortal.BLL.Services
 
         public async Task UpdateBook(BookDTO book)
         {
-            await _bookRepo.UpdateAsync(_mapper.Map<Book>(book));
+            await _bookRepo.UpdateAsync(new Book
+            {
+                Id = book.Id,
+                OwnerId = book.Id,
+                Discriminator = book.Discriminator,
+                Author = book.Author,
+                Title = book.Title,
+                Description = book.Description,
+                BookFormat = book.BookFormat,
+                Pages = book.Pages,
+                PublicationDate = book.PublicationDate,
+            });
         }
 
         public async Task<BookDTO> GetBook(Guid id)
         {
-            return _mapper.Map<BookDTO>(await _bookRepo.GetAsync(id));
+            var book = await _bookRepo.GetAsync(id);
+            return new BookDTO
+            {
+                Id = book.Id,
+                OwnerId = book.Id,
+                Discriminator = book.Discriminator,
+                Author = book.Author,
+                Title = book.Title,
+                Description = book.Description,
+                BookFormat = book.BookFormat,
+                Pages = book.Pages,
+                PublicationDate = book.PublicationDate,
+            };
         }
     }
 }
