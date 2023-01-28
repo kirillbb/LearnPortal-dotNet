@@ -7,6 +7,7 @@ namespace LearnPortal.PL.Services
     public class UiBookService
     {
         private readonly BookService _bookService;
+
         public UserDTO CurrentUser { get; private set; }
 
         public UiBookService(UserDTO currentUser)
@@ -21,7 +22,7 @@ namespace LearnPortal.PL.Services
             string title = Console.ReadLine();
             PrinterService.Message("Enter a Description of a book:");
             string description = Console.ReadLine();
-            PrinterService.Message("Enter a Author of a book:");
+            PrinterService.Message("Enter an Author of a book:");
             string author = Console.ReadLine();
             PrinterService.Message("Enter a count of pages of a book:");
             int pages = int.Parse(Console.ReadLine());
@@ -109,6 +110,7 @@ namespace LearnPortal.PL.Services
                     await _bookService.UpdateBook(new BookDTO
                     {
                         Author = book.Author,
+                        //OwnerId = book.OwnerId, check,i need that or not?
                         Title = book.Title,
                         Description = book.Description,
                         BookFormat = book.BookFormat,
