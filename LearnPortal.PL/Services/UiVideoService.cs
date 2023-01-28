@@ -105,12 +105,55 @@ namespace LearnPortal.PL.Services
                         Duration = video.Duration,
                         Resolution = video.Resolution,
                         //OwnerId = video.OwnerId, check,i need that or not?
-
                     });
                 }
                 else
                 {
                     PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
+
+        public async Task DeleteVideoAsync()
+        {
+            try
+            {
+                var id = UserInputService.GetId();
+                await _videoService.DeleteVideo(id);
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
+
+        public async Task GetAllVideosAsync()
+        {
+            try
+            {
+                var videos = await _videoService.GetVideosAsync();
+                if (videos != null)
+                {
+                    foreach (var video in videos)
+                    {
+                        PrinterService.Print(new VideoViewModel
+                        {
+                            Id = video.Id,
+                            OwnerId = video.OwnerId,
+                            Title = video.Title,
+                            Description = video.Description,
+                            Duration = video.Duration,
+                            Resolution = video.Resolution,
+                        });
+                    }
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Empty List!");
                 }
             }
             catch (Exception ex)

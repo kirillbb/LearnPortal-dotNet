@@ -22,7 +22,7 @@ namespace LearnPortal.PL.Services
             string title = Console.ReadLine();
             PrinterService.Message("Enter a Description of a book:");
             string description = Console.ReadLine();
-            PrinterService.Message("Enter a Author of a book:");
+            PrinterService.Message("Enter an Author of a book:");
             string author = Console.ReadLine();
             PrinterService.Message("Enter a count of pages of a book:");
             int pages = int.Parse(Console.ReadLine());
