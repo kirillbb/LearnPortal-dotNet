@@ -7,6 +7,7 @@ namespace LearnPortal.PL.Services
     public class UiBookService
     {
         private readonly BookService _bookService;
+
         public UserDTO CurrentUser { get; private set; }
 
         public UiBookService(UserDTO currentUser)
