@@ -110,6 +110,7 @@ namespace LearnPortal.PL.Services
                     await _bookService.UpdateBook(new BookDTO
                     {
                         Author = book.Author,
+                        //OwnerId = book.OwnerId, check,i need that or not?
                         Title = book.Title,
                         Description = book.Description,
                         BookFormat = book.BookFormat,

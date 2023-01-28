@@ -1,6 +1,6 @@
 ﻿using LearnPortal.BLL.DTO;
+using LearnPortal.BLL.Interfaces;
 using LearnPortal.BLL.Services;
-using LearnPortal.DAL.Entities.UserType;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
@@ -68,7 +68,7 @@ namespace LearnPortal.PL.Services
         public async Task ShowVideoAsync()
         {
             var id = UserInputService.GetId();
-            if (id!= Guid.Empty)
+            if (id != Guid.Empty)
             {
                 var video = await _videoService.GetVideo(id);
                 PrinterService.Print(new VideoViewModel
@@ -84,6 +84,38 @@ namespace LearnPortal.PL.Services
             else
             {
                 PrinterService.ErrorMsg("Incorrect Id");
+            }
+        }
+
+        public async Task UpdateVideoAsync()
+        {
+            try
+            {
+                var id = UserInputService.GetId();
+                VideoViewModel video = EnteringVideoFields();
+                video.Id = id;
+
+                PrinterService.BreakLine();
+                if (video != null)
+                {
+                    await _videoService.UpdateVideo(new VideoDTO
+                    {
+                        Title = video.Title,
+                        Description = video.Description,
+                        Duration = video.Duration,
+                        Resolution = video.Resolution,
+                        //OwnerId = video.OwnerId, check,i need that or not?
+
+                    });
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
             }
         }
     }
