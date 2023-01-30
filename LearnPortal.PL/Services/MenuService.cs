@@ -34,18 +34,23 @@ namespace LearnPortal.PL.Services
                 case 1:
                     ChooseMaterialMenuAsync();
                     break;
+
                 case 2:
                     //await _courseOperationService.StarterAsync();
                     break;
+
                 case 3:
                     //await _skillOperationService.StarterAsync();
                     break;
+
                 case 4:
                     //await _userOperationService.StarterAsync();
                     break;
+
                 case 0:
                     Environment.Exit(0);
                     break;
+
                 default:
                     await GeneralMenuAsync();
                     break;
@@ -62,18 +67,23 @@ namespace LearnPortal.PL.Services
                 case 1:
                     BookOperationMenuAsync();
                     break;
+
                 case 2:
                     VideoOperationMenuAsync();
                     break;
+
                 case 3:
                     PublicationOperationMenuAsync();
                     break;
+
                 case 9:
                     await GeneralMenuAsync();
                     break;
+
                 case 0:
                     Environment.Exit(0);
                     break;
+
                 default:
                     await ChooseMaterialMenuAsync();
                     break;
@@ -90,28 +100,35 @@ namespace LearnPortal.PL.Services
                     await bookService.CreateBookAsync();
                     await BookOperationMenuAsync();
                     break;
+
                 case 2:
                     await bookService.ShowBookAsync();
                     await BookOperationMenuAsync();
                     break;
+
                 case 3:
                     await bookService.UpdateBookAsync();
                     await BookOperationMenuAsync();
                     break;
+
                 case 4:
                     await bookService.DeleteBookAsync();
                     await BookOperationMenuAsync();
                     break;
+
                 case 5:
                     await bookService.GetAllBooksAsync();
                     await BookOperationMenuAsync();
                     break;
+
                 case 9:
                     await ChooseMaterialMenuAsync();
                     break;
+
                 case 0:
                     Environment.Exit(0);
                     break;
+
                 default:
                     await BookOperationMenuAsync();
                     break;
@@ -126,24 +143,31 @@ namespace LearnPortal.PL.Services
                 case 1:
                     //await _videoService.CreateVideo();
                     break;
+
                 case 2:
                     //_videoService.GetVideo();
                     break;
+
                 case 3:
                     //await _videoService.UpdateVideo();
                     break;
+
                 case 4:
                     //await _videoService.DeleteVideo();
                     break;
+
                 case 5:
                     //await _videoService.GetVideosAsync();
                     break;
+
                 case 9:
                     await ChooseMaterialMenuAsync();
                     break;
+
                 case 0:
                     Environment.Exit(0);
                     break;
+
                 default:
                     await BookOperationMenuAsync();
                     break;
@@ -158,32 +182,35 @@ namespace LearnPortal.PL.Services
                 case 1:
                     //await _publicationService.CreatePublication();
                     break;
+
                 case 2:
                     //_publicationService.GetPublication();
                     break;
+
                 case 3:
                     //await _publicationService.UpdatePublication();
                     break;
+
                 case 4:
                     //await _publicationService.DeletePublication();
                     break;
+
                 case 5:
                     //await _publicationService.GetPublicationsAsync();
                     break;
+
                 case 9:
                     await ChooseMaterialMenuAsync();
                     break;
+
                 case 0:
                     Environment.Exit(0);
                     break;
+
                 default:
                     await BookOperationMenuAsync();
                     break;
             }
         }
-
-
-
-        
     }
 }

@@ -1,5 +1,4 @@
 ﻿using LearnPortal.BLL.DTO;
-using LearnPortal.BLL.Interfaces;
 using LearnPortal.BLL.Services;
 using LearnPortal.PL.ViewModels;
 

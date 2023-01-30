@@ -1,5 +1,4 @@
 ﻿using LearnPortal.BLL.DTO;
-using LearnPortal.BLL.Interfaces;
 using LearnPortal.BLL.Services;
 using LearnPortal.PL.ViewModels;
 
@@ -142,7 +141,7 @@ namespace LearnPortal.PL.Services
                     {
                         PrinterService.Print(new PublicationViewModel
                         {
-                            Id= publication.Id,
+                            Id = publication.Id,
                             Title = publication.Title,
                             Description = publication.Description,
                             CreationDate = publication.CreationDate,

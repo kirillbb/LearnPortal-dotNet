@@ -15,21 +15,6 @@
             BreakLine();
         }
 
-        //internal static void SkillOperationsMenu()
-        //{
-        //    BreakLine();
-        //    Console.WriteLine("-- Select a menu item by pressing the desired number and Enter --");
-        //    BreakLine();
-        //    Console.WriteLine("[1] Create skill");
-        //    Console.WriteLine("[2] Find skill by Id");
-        //    Console.WriteLine("[3] Update skill");
-        //    Console.WriteLine("[4] Delete skill");
-        //    Console.WriteLine("[5] Show all skills\n");
-        //    Console.WriteLine("[9] <--- Back");
-        //    Console.WriteLine("[0] Close the program");
-        //    BreakLine();
-        //}
-
         public static void CoursesOperationsMenu()
         {
             BreakLine();
