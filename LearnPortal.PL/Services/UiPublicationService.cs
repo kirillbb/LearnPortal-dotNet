@@ -1,4 +1,5 @@
 ﻿using LearnPortal.BLL.DTO;
+using LearnPortal.BLL.Interfaces;
 using LearnPortal.BLL.Services;
 using LearnPortal.PL.ViewModels;
 
@@ -83,6 +84,81 @@ namespace LearnPortal.PL.Services
             else
             {
                 PrinterService.ErrorMsg("Incorrect Id");
+            }
+        }
+
+        public async Task UpdatePublicationAsync()
+        {
+            try
+            {
+                var id = UserInputService.GetId();
+                PublicationViewModel publication = EnteringPublicationFields();
+                publication.Id = id;
+
+                PrinterService.BreakLine();
+                if (publication != null)
+                {
+                    await _publicationService.UpdatePublication(new PublicationDTO
+                    {
+                        //OwnerId = book.OwnerId, check,i need that or not?
+                        Title = publication.Title,
+                        Description = publication.Description,
+                        CreationDate = publication.CreationDate,
+                        Source = publication.Source,
+                    });
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
+
+        public async Task DeletePublicationAsync()
+        {
+            try
+            {
+                var id = UserInputService.GetId();
+                await _publicationService.DeletePublication(id);
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
+
+        public async Task GetAllPublicationAsync()
+        {
+            try
+            {
+                var publications = await _publicationService.GetPublicationsAsync();
+                if (publications != null)
+                {
+                    foreach (var publication in publications)
+                    {
+                        PrinterService.Print(new PublicationViewModel
+                        {
+                            Id= publication.Id,
+                            Title = publication.Title,
+                            Description = publication.Description,
+                            CreationDate = publication.CreationDate,
+                            Source = publication.Source,
+                            OwnerId = publication.OwnerId,
+                        });
+                    }
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Empty List!");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
             }
         }
     }
