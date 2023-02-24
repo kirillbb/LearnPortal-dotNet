@@ -4,11 +4,10 @@ using LearnPortal.DAL.Data;
 using LearnPortal.DAL.Entities.MaterialType;
 using LearnPortal.DAL.Interfaces;
 using LearnPortal.DAL.Repository;
-using System;
 
 namespace LearnPortal.BLL.Services
 {
-    public class VideoService : IVideoService
+    public class VideoService : IService<VideoDTO>
     {
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
@@ -22,7 +21,7 @@ namespace LearnPortal.BLL.Services
             _videoRepo = new GenericRepository<Video>(_context);
         }
 
-        public async Task CreateVideo(VideoDTO video)
+        public async Task CreateAsync(VideoDTO video)
         {
             await _videoRepo.CreateAsync(new Video
             {
@@ -36,7 +35,7 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task DeleteVideo(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _videoRepo.DeleteAsync(id);
         }
@@ -64,7 +63,7 @@ namespace LearnPortal.BLL.Services
             return videoDTOs;
         }
 
-        public async Task<VideoDTO> GetVideo(Guid id)
+        public async Task<VideoDTO> GetAsync(Guid id)
         {
             var video = await _videoRepo.GetAsync(id);
             return new VideoDTO
@@ -79,7 +78,7 @@ namespace LearnPortal.BLL.Services
             };
         }
 
-        public async Task<IEnumerable<VideoDTO>> GetVideosAsync()
+        public async Task<IEnumerable<VideoDTO>> GetAllAsync()
         {
             var videos = await _videoRepo.GetAllAsync();
             List<VideoDTO> videoDTOs = new List<VideoDTO>();
@@ -102,7 +101,7 @@ namespace LearnPortal.BLL.Services
             return videoDTOs;
         }
 
-        public async Task UpdateVideo(VideoDTO video)
+        public async Task UpdateAsync(VideoDTO video)
         {
             await _videoRepo.UpdateAsync(new Video
             {
