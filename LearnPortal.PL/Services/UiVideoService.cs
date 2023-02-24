@@ -1,10 +1,11 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
+using LearnPortal.PL.Interfaces;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    public class UiVideoService
+    public class UiVideoService : IUiService<VideoViewModel>
     {
         private readonly VideoService _videoService;
 
@@ -16,7 +17,7 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
-        public VideoViewModel EnteringVideoFields()
+        public VideoViewModel EnteringFields()
         {
             Console.WriteLine("Enter a Title of a video:");
             string title = Console.ReadLine();
@@ -36,11 +37,11 @@ namespace LearnPortal.PL.Services
             };
         }
 
-        public async Task CreateVideoAsync()
+        public async Task CreateAsync()
         {
             try
             {
-                VideoViewModel video = EnteringVideoFields();
+                VideoViewModel video = EnteringFields();
 
                 PrinterService.BreakLine();
                 if (video != null)
@@ -64,7 +65,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task ShowVideoAsync()
+        public async Task GetAsync()
         {
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
@@ -86,12 +87,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task UpdateVideoAsync()
+        public async Task UpdateAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                VideoViewModel video = EnteringVideoFields();
+                VideoViewModel video = EnteringFields();
                 video.Id = id;
 
                 PrinterService.BreakLine();
@@ -117,7 +118,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeleteVideoAsync()
+        public async Task DeleteAsync()
         {
             try
             {
@@ -130,7 +131,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task GetAllVideosAsync()
+        public async Task GetAllAsync()
         {
             try
             {
