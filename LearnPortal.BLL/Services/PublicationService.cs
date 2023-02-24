@@ -7,7 +7,7 @@ using LearnPortal.DAL.Repository;
 
 namespace LearnPortal.BLL.Services
 {
-    public class PublicationService : IPublicationService
+    public class PublicationService : IService<PublicationDTO>
     {
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
@@ -21,7 +21,7 @@ namespace LearnPortal.BLL.Services
             _publicationRepo = new GenericRepository<Publication>(_context);
         }
 
-        public async Task CreatePublication(PublicationDTO publication)
+        public async Task CreateAsync(PublicationDTO publication)
         {
             await _publicationRepo.CreateAsync(new Publication
             {
@@ -34,12 +34,12 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task DeletePublication(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _publicationRepo.DeleteAsync(id);
         }
 
-        public IEnumerable<PublicationDTO> FindPublication(Func<Publication, bool> predicate)
+        public IEnumerable<PublicationDTO> Find(Func<Publication, bool> predicate)
         {
             var publications = _publicationRepo.Find(predicate);
             List<PublicationDTO> publicationDTOs = new List<PublicationDTO>();
@@ -60,7 +60,7 @@ namespace LearnPortal.BLL.Services
             return publicationDTOs;
         }
 
-        public async Task<PublicationDTO> GetPublication(Guid id)
+        public async Task<PublicationDTO> GetAsync(Guid id)
         {
             var publication = await _publicationRepo.GetAsync(id);
             return new PublicationDTO
@@ -73,7 +73,7 @@ namespace LearnPortal.BLL.Services
             };
         }
 
-        public async Task<IEnumerable<PublicationDTO>> GetPublicationsAsync()
+        public async Task<IEnumerable<PublicationDTO>> GetAllAsync()
         {
             var publications = await _publicationRepo.GetAllAsync();
             List<PublicationDTO> publicationDTOs = new List<PublicationDTO>();
@@ -94,7 +94,7 @@ namespace LearnPortal.BLL.Services
             return publicationDTOs;
         }
 
-        public async Task UpdatePublication(PublicationDTO publication)
+        public async Task UpdateAsync(PublicationDTO publication)
         {
             await _publicationRepo.UpdateAsync(new Publication
             {
