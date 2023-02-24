@@ -1,10 +1,11 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
+using LearnPortal.PL.Interfaces;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    public class UiBookService
+    public class UiBookService : IUiService<BookViewModel>
     {
         private readonly BookService _bookService;
 
@@ -16,7 +17,7 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
-        public BookViewModel EnteringBookFields()
+        public BookViewModel EnteringFields()
         {
             PrinterService.Message("Enter a Title of a book:");
             string title = Console.ReadLine();
@@ -42,11 +43,11 @@ namespace LearnPortal.PL.Services
             };
         }
 
-        public async Task CreateBookAsync()
+        public async Task CreateAsync()
         {
             try
             {
-                BookViewModel book = EnteringBookFields();
+                BookViewModel book = EnteringFields();
 
                 PrinterService.BreakLine();
                 if (book != null)
@@ -72,7 +73,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task ShowBookAsync()
+        public async Task GetAsync()
         {
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
@@ -96,12 +97,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task UpdateBookAsync()
+        public async Task UpdateAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                BookViewModel book = EnteringBookFields();
+                BookViewModel book = EnteringFields();
                 book.Id = id;
 
                 PrinterService.BreakLine();
@@ -129,7 +130,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeleteBookAsync()
+        public async Task DeleteAsync()
         {
             try
             {
@@ -142,7 +143,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task GetAllBooksAsync()
+        public async Task GetAllAsync()
         {
             try
             {
