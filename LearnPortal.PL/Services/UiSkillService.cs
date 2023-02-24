@@ -56,5 +56,25 @@ namespace LearnPortal.PL.Services
                 PrinterService.ErrorMsg(ex.Message);
             }
         }
+
+        public async Task ShowSkillAsync()
+        {
+            var id = UserInputService.GetId();
+            if (id != Guid.Empty)
+            {
+                var skill = await _skillService.GetSkill(id);
+                PrinterService.Print(new SkillViewModel
+                {
+                    Id = skill.Id,
+                    OwnerId = skill.Id,
+                    Title = skill   .Title,
+                    Description = skill.Description,
+                });
+            }
+            else
+            {
+                PrinterService.ErrorMsg("Incorrect Id");
+            }
+        }
     }
 }
