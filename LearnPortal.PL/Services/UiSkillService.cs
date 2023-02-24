@@ -118,6 +118,33 @@ namespace LearnPortal.PL.Services
             }
         }
 
-
+        public async Task GetAllSkillsAsync()
+        {
+            try
+            {
+                var skills = await _skillService.GetSkillsAsync();
+                if (skills != null)
+                {
+                    foreach (var skill in skills)
+                    {
+                        PrinterService.Print(new SkillViewModel
+                        {
+                            Id = skill.Id,
+                            OwnerId = skill.Id,
+                            Title = skill.Title,
+                            Description = skill.Description,
+                        });
+                    }
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Empty List!");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
     }
 }
