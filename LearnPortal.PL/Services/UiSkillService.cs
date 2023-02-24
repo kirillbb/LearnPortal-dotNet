@@ -104,5 +104,18 @@ namespace LearnPortal.PL.Services
                 PrinterService.ErrorMsg(ex.Message);
             }
         }
+
+        public async Task DeleteBookAsync()
+        {
+            try
+            {
+                var id = UserInputService.GetId();
+                await _skillService.DeleteSkill(id);
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
     }
 }
