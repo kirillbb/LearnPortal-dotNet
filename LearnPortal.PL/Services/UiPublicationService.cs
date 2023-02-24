@@ -1,10 +1,11 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
+using LearnPortal.PL.Interfaces;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    internal class UiPublicationService
+    internal class UiPublicationService : IUiService<PublicationViewModel>
     {
         private readonly PublicationService _publicationService;
 
@@ -16,7 +17,7 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
-        public PublicationViewModel EnteringPublicationFields()
+        public PublicationViewModel EnteringFields()
         {
             Console.WriteLine("Enter a Title of a publication:");
             string title = Console.ReadLine();
@@ -36,11 +37,11 @@ namespace LearnPortal.PL.Services
             };
         }
 
-        public async Task CreatePublicationAsync()
+        public async Task CreateAsync()
         {
             try
             {
-                PublicationViewModel publication = EnteringPublicationFields();
+                PublicationViewModel publication = EnteringFields();
 
                 PrinterService.BreakLine();
                 if (publication != null)
@@ -64,7 +65,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task ShowPublicationAsync()
+        public async Task GetAsync()
         {
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
@@ -86,12 +87,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task UpdatePublicationAsync()
+        public async Task UpdateAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                PublicationViewModel publication = EnteringPublicationFields();
+                PublicationViewModel publication = EnteringFields();
                 publication.Id = id;
 
                 PrinterService.BreakLine();
@@ -117,7 +118,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeletePublicationAsync()
+        public async Task DeleteAsync()
         {
             try
             {
@@ -130,7 +131,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task GetAllPublicationAsync()
+        public async Task GetAllAsync()
         {
             try
             {
