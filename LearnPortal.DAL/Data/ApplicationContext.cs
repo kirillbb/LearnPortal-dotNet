@@ -36,8 +36,8 @@ namespace LearnPortal.DAL.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                "Data Source=DESKTOP-1BKP631\\LOCALMSSQLSERVER;Database=db_LearnPortal;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+                ApplicationConfiguration configuration = new ApplicationConfiguration();
+                optionsBuilder.UseSqlServer(configuration.SqlConnectionString);
             }
         }
     }
