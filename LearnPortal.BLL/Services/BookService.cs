@@ -7,7 +7,7 @@ using LearnPortal.DAL.Repository;
 
 namespace LearnPortal.BLL.Services
 {
-    public class BookService : IBookService
+    public class BookService : IService<BookDTO>
     {
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
@@ -21,7 +21,7 @@ namespace LearnPortal.BLL.Services
             _bookRepo = new GenericRepository<Book>(_context);
         }
 
-        public IEnumerable<BookDTO> FindBook(Func<Book, bool> predicate)
+        public IEnumerable<BookDTO> Find(Func<Book, bool> predicate)
         {
             var books = _bookRepo.Find(predicate);
             List<BookDTO> bookDTOs = new List<BookDTO>();
@@ -46,7 +46,7 @@ namespace LearnPortal.BLL.Services
             return bookDTOs;
         }
 
-        public async Task<IEnumerable<BookDTO>> GetBooksAsync()
+        public async Task<IEnumerable<BookDTO>> GetAllAsync()
         {
             var books = await _bookRepo.GetAllAsync();
             List<BookDTO> bookDTOs = new List<BookDTO>();
@@ -71,7 +71,7 @@ namespace LearnPortal.BLL.Services
             return bookDTOs;
         }
 
-        public async Task CreateBook(BookDTO book)
+        public async Task CreateAsync(BookDTO book)
         {
             await _bookRepo.CreateAsync(new Book
             {
@@ -87,12 +87,12 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task DeleteBook(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _bookRepo.DeleteAsync(id);
         }
 
-        public async Task UpdateBook(BookDTO book)
+        public async Task UpdateAsync(BookDTO book)
         {
             await _bookRepo.UpdateAsync(new Book
             {
@@ -108,7 +108,7 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task<BookDTO> GetBook(Guid id)
+        public async Task<BookDTO> GetAsync(Guid id)
         {
             var book = await _bookRepo.GetAsync(id);
             return new BookDTO

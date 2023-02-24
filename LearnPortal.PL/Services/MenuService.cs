@@ -97,27 +97,27 @@ namespace LearnPortal.PL.Services
             switch (UserInputService.GetMenuItemNumber())
             {
                 case 1:
-                    await bookService.CreateBookAsync();
+                    await bookService.CreateAsync();
                     await BookOperationMenuAsync();
                     break;
 
                 case 2:
-                    await bookService.ShowBookAsync();
+                    await bookService.GetAsync();
                     await BookOperationMenuAsync();
                     break;
 
                 case 3:
-                    await bookService.UpdateBookAsync();
+                    await bookService.UpdateAsync();
                     await BookOperationMenuAsync();
                     break;
 
                 case 4:
-                    await bookService.DeleteBookAsync();
+                    await bookService.DeleteAsync();
                     await BookOperationMenuAsync();
                     break;
 
                 case 5:
-                    await bookService.GetAllBooksAsync();
+                    await bookService.GetAllAsync();
                     await BookOperationMenuAsync();
                     break;
 

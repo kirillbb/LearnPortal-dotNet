@@ -1,10 +1,11 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
+using LearnPortal.PL.Interfaces;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    internal class UiPublicationService
+    internal class UiPublicationService : IUiService<PublicationViewModel>
     {
         private readonly PublicationService _publicationService;
 
@@ -16,7 +17,7 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
-        public PublicationViewModel EnteringPublicationFields()
+        public PublicationViewModel EnteringFields()
         {
             Console.WriteLine("Enter a Title of a publication:");
             string title = Console.ReadLine();
@@ -36,16 +37,16 @@ namespace LearnPortal.PL.Services
             };
         }
 
-        public async Task CreatePublicationAsync()
+        public async Task CreateAsync()
         {
             try
             {
-                PublicationViewModel publication = EnteringPublicationFields();
+                PublicationViewModel publication = EnteringFields();
 
                 PrinterService.BreakLine();
                 if (publication != null)
                 {
-                    await _publicationService.CreatePublication(new PublicationDTO
+                    await _publicationService.CreateAsync(new PublicationDTO
                     {
                         Title = publication.Title,
                         Description = publication.Description,
@@ -64,12 +65,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task ShowPublicationAsync()
+        public async Task GetAsync()
         {
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var publication = await _publicationService.GetPublication(id);
+                var publication = await _publicationService.GetAsync(id);
                 PrinterService.Print(new PublicationViewModel
                 {
                     Id = publication.Id,
@@ -86,18 +87,18 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task UpdatePublicationAsync()
+        public async Task UpdateAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                PublicationViewModel publication = EnteringPublicationFields();
+                PublicationViewModel publication = EnteringFields();
                 publication.Id = id;
 
                 PrinterService.BreakLine();
                 if (publication != null)
                 {
-                    await _publicationService.UpdatePublication(new PublicationDTO
+                    await _publicationService.UpdateAsync(new PublicationDTO
                     {
                         //OwnerId = book.OwnerId, check,i need that or not?
                         Title = publication.Title,
@@ -117,12 +118,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeletePublicationAsync()
+        public async Task DeleteAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                await _publicationService.DeletePublication(id);
+                await _publicationService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -130,11 +131,11 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task GetAllPublicationAsync()
+        public async Task GetAllAsync()
         {
             try
             {
-                var publications = await _publicationService.GetPublicationsAsync();
+                var publications = await _publicationService.GetAllAsync();
                 if (publications != null)
                 {
                     foreach (var publication in publications)

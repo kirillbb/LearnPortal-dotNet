@@ -1,10 +1,11 @@
 ﻿using LearnPortal.BLL.DTO;
 using LearnPortal.BLL.Services;
+using LearnPortal.PL.Interfaces;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    public class UiVideoService
+    public class UiVideoService : IUiService<VideoViewModel>
     {
         private readonly VideoService _videoService;
 
@@ -16,7 +17,7 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
-        public VideoViewModel EnteringVideoFields()
+        public VideoViewModel EnteringFields()
         {
             Console.WriteLine("Enter a Title of a video:");
             string title = Console.ReadLine();
@@ -36,16 +37,16 @@ namespace LearnPortal.PL.Services
             };
         }
 
-        public async Task CreateVideoAsync()
+        public async Task CreateAsync()
         {
             try
             {
-                VideoViewModel video = EnteringVideoFields();
+                VideoViewModel video = EnteringFields();
 
                 PrinterService.BreakLine();
                 if (video != null)
                 {
-                    await _videoService.CreateVideo(new VideoDTO
+                    await _videoService.CreateAsync(new VideoDTO
                     {
                         Title = video.Title,
                         Resolution = video.Resolution,
@@ -64,12 +65,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task ShowVideoAsync()
+        public async Task GetAsync()
         {
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var video = await _videoService.GetVideo(id);
+                var video = await _videoService.GetAsync(id);
                 PrinterService.Print(new VideoViewModel
                 {
                     Id = video.Id,
@@ -86,18 +87,18 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task UpdateVideoAsync()
+        public async Task UpdateAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                VideoViewModel video = EnteringVideoFields();
+                VideoViewModel video = EnteringFields();
                 video.Id = id;
 
                 PrinterService.BreakLine();
                 if (video != null)
                 {
-                    await _videoService.UpdateVideo(new VideoDTO
+                    await _videoService.UpdateAsync(new VideoDTO
                     {
                         Title = video.Title,
                         Description = video.Description,
@@ -117,12 +118,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeleteVideoAsync()
+        public async Task DeleteAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                await _videoService.DeleteVideo(id);
+                await _videoService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -130,11 +131,11 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task GetAllVideosAsync()
+        public async Task GetAllAsync()
         {
             try
             {
-                var videos = await _videoService.GetVideosAsync();
+                var videos = await _videoService.GetAllAsync();
                 if (videos != null)
                 {
                     foreach (var video in videos)

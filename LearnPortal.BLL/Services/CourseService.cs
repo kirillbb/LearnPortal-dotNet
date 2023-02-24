@@ -7,7 +7,7 @@ using LearnPortal.DAL.Repository;
 
 namespace LearnPortal.BLL.Services
 {
-    public class CourseService : ICourseService
+    public class CourseService : IService<CourseDTO>
     {
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
@@ -21,7 +21,7 @@ namespace LearnPortal.BLL.Services
             _courseRepo = new GenericRepository<Course>(_context);
         }
 
-        public IEnumerable<CourseDTO> FindCourse(Func<Course, bool> predicate)
+        public IEnumerable<CourseDTO> Find(Func<Course, bool> predicate)
         {
             var courses = _courseRepo.Find(predicate);
             List<CourseDTO> coursesDto = new List<CourseDTO>();
@@ -41,7 +41,7 @@ namespace LearnPortal.BLL.Services
             return coursesDto;
         }
 
-        public async Task<IEnumerable<CourseDTO>> GetCoursesAsync()
+        public async Task<IEnumerable<CourseDTO>> GetAllAsync()
         {
             var courses = await _courseRepo.GetAllAsync();
             List<CourseDTO> coursesDto = new List<CourseDTO>();
@@ -61,7 +61,7 @@ namespace LearnPortal.BLL.Services
             return coursesDto;
         }
 
-        public async Task CreateCourse(CourseDTO course)
+        public async Task CreateAsync(CourseDTO course)
         {
             await _courseRepo.CreateAsync(new Course
             {
@@ -72,14 +72,14 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task DeleteCourse(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _courseRepo.DeleteAsync(id);
         }
 
-        public async Task UpdateCourse(CourseDTO course)
+        public async Task UpdateAsync(CourseDTO course)
         {
-            await _courseRepo.UpdateAsync(new Course 
+            await _courseRepo.UpdateAsync(new Course
             {
                 Id = course.Id,
                 Title = course.Title,
@@ -88,7 +88,7 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task<CourseDTO> GetCourse(Guid id)
+        public async Task<CourseDTO> GetAsync(Guid id)
         {
             var course = await _courseRepo.GetAsync(id);
             return new CourseDTO

@@ -1,11 +1,11 @@
 ﻿using LearnPortal.BLL.DTO;
-using LearnPortal.BLL.Interfaces;
 using LearnPortal.BLL.Services;
+using LearnPortal.PL.Interfaces;
 using LearnPortal.PL.ViewModels;
 
 namespace LearnPortal.PL.Services
 {
-    public class UiSkillService
+    public class UiSkillService : IUiService<SkillViewModel>
     {
         private readonly SkillService _skillService;
 
@@ -17,7 +17,7 @@ namespace LearnPortal.PL.Services
             CurrentUser = currentUser;
         }
 
-        public SkillViewModel EnteringSkillFields()
+        public SkillViewModel EnteringFields()
         {
             PrinterService.Message("Enter a Title of a skill:");
             string title = Console.ReadLine();
@@ -31,16 +31,16 @@ namespace LearnPortal.PL.Services
             };
         }
 
-        public async Task CreateSkillAsync()
+        public async Task CreateAsync()
         {
             try
             {
-                SkillViewModel skill = EnteringSkillFields();
+                SkillViewModel skill = EnteringFields();
 
                 PrinterService.BreakLine();
                 if (skill != null)
                 {
-                    await _skillService.CreateSkill(new SkillDTO
+                    await _skillService.CreateAsync(new SkillDTO
                     {
                         Title = skill.Title,
                         Description = skill.Description,
@@ -57,12 +57,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task ShowSkillAsync()
+        public async Task GetAsync()
         {
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var skill = await _skillService.GetSkill(id);
+                var skill = await _skillService.GetAsync(id);
                 PrinterService.Print(new SkillViewModel
                 {
                     Id = skill.Id,
@@ -77,18 +77,18 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task UpdateSkillAsync()
+        public async Task UpdateAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                SkillViewModel skill = EnteringSkillFields();
+                SkillViewModel skill = EnteringFields();
                 skill.Id = id;
 
                 PrinterService.BreakLine();
                 if (skill != null)
                 {
-                    await _skillService.UpdateSkill(new SkillDTO
+                    await _skillService.UpdateAsync(new SkillDTO
                     {
                         Title = skill.Title,
                         Description = skill.Description,
@@ -105,12 +105,12 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeleteSkillAsync()
+        public async Task DeleteAsync()
         {
             try
             {
                 var id = UserInputService.GetId();
-                await _skillService.DeleteSkill(id);
+                await _skillService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -118,11 +118,11 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task GetAllSkillsAsync()
+        public async Task GetAllAsync()
         {
             try
             {
-                var skills = await _skillService.GetSkillsAsync();
+                var skills = await _skillService.GetAllAsync();
                 if (skills != null)
                 {
                     foreach (var skill in skills)

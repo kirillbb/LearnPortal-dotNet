@@ -7,7 +7,7 @@ using LearnPortal.DAL.Repository;
 
 namespace LearnPortal.BLL.Services
 {
-    public class SkillService : ISkillService
+    public class SkillService : IService<SkillDTO>
     {
         private readonly UserDTO _currentUser;
         private readonly ApplicationContext _context;
@@ -21,7 +21,7 @@ namespace LearnPortal.BLL.Services
             _skillRepo = new GenericRepository<Skill>(_context);
         }
 
-        public async Task CreateSkill(SkillDTO skill)
+        public async Task CreateAsync(SkillDTO skill)
         {
             await _skillRepo.CreateAsync(new Skill
             {
@@ -32,12 +32,12 @@ namespace LearnPortal.BLL.Services
             });
         }
 
-        public async Task DeleteSkill(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _skillRepo.DeleteAsync(id);
         }
 
-        public IEnumerable<SkillDTO> FindSkill(Func<Skill, bool> predicate)
+        public IEnumerable<SkillDTO> Find(Func<Skill, bool> predicate)
         {
             var skills = _skillRepo.Find(predicate);
             List<SkillDTO> skillDTOs = new List<SkillDTO>();
@@ -55,7 +55,7 @@ namespace LearnPortal.BLL.Services
             return skillDTOs;
         }
 
-        public async Task<SkillDTO> GetSkill(Guid id)
+        public async Task<SkillDTO> GetAsync(Guid id)
         {
             var skill = await _skillRepo.GetAsync(id);
             return new SkillDTO
@@ -67,7 +67,7 @@ namespace LearnPortal.BLL.Services
             };
         }
 
-        public async Task<IEnumerable<SkillDTO>> GetSkillsAsync()
+        public async Task<IEnumerable<SkillDTO>> GetAllAsync()
         {
             var skills = await _skillRepo.GetAllAsync();
             List<SkillDTO> skillDTOs = new List<SkillDTO>();
@@ -85,7 +85,7 @@ namespace LearnPortal.BLL.Services
             return skillDTOs;
         }
 
-        public async Task UpdateSkill(SkillDTO skill)
+        public async Task UpdateAsync(SkillDTO skill)
         {
             await _skillRepo.UpdateAsync(new Skill
             {
