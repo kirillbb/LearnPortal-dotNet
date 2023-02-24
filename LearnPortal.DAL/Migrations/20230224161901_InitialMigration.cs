@@ -78,7 +78,7 @@ namespace LearnPortal.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FinishedCourses",
+                name: "CourseUser",
                 columns: table => new
                 {
                     FinishedCoursesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -86,15 +86,15 @@ namespace LearnPortal.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FinishedCourses", x => new { x.FinishedCoursesId, x.FinishedStudentsId });
+                    table.PrimaryKey("PK_CourseUser", x => new { x.FinishedCoursesId, x.FinishedStudentsId });
                     table.ForeignKey(
-                        name: "FK_FinishedCourses_Courses_FinishedCoursesId",
+                        name: "FK_CourseUser_Courses_FinishedCoursesId",
                         column: x => x.FinishedCoursesId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FinishedCourses_Users_FinishedStudentsId",
+                        name: "FK_CourseUser_Users_FinishedStudentsId",
                         column: x => x.FinishedStudentsId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -102,7 +102,7 @@ namespace LearnPortal.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InProgressCourses",
+                name: "CourseUser1",
                 columns: table => new
                 {
                     InProgressCoursesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -110,15 +110,15 @@ namespace LearnPortal.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InProgressCourses", x => new { x.InProgressCoursesId, x.InProgressStudentsId });
+                    table.PrimaryKey("PK_CourseUser1", x => new { x.InProgressCoursesId, x.InProgressStudentsId });
                     table.ForeignKey(
-                        name: "FK_InProgressCourses_Courses_InProgressCoursesId",
+                        name: "FK_CourseUser1_Courses_InProgressCoursesId",
                         column: x => x.InProgressCoursesId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InProgressCourses_Users_InProgressStudentsId",
+                        name: "FK_CourseUser1_Users_InProgressStudentsId",
                         column: x => x.InProgressStudentsId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -213,13 +213,13 @@ namespace LearnPortal.DAL.Migrations
                 column: "SkillsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FinishedCourses_FinishedStudentsId",
-                table: "FinishedCourses",
+                name: "IX_CourseUser_FinishedStudentsId",
+                table: "CourseUser",
                 column: "FinishedStudentsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InProgressCourses_InProgressStudentsId",
-                table: "InProgressCourses",
+                name: "IX_CourseUser1_InProgressStudentsId",
+                table: "CourseUser1",
                 column: "InProgressStudentsId");
 
             migrationBuilder.CreateIndex(
@@ -243,10 +243,10 @@ namespace LearnPortal.DAL.Migrations
                 name: "CourseSkill");
 
             migrationBuilder.DropTable(
-                name: "InProgressCourses");
+                name: "CourseUser");
 
             migrationBuilder.DropTable(
-                name: "FinishedCourses");
+                name: "CourseUser1");
 
             migrationBuilder.DropTable(
                 name: "SkillUser");
