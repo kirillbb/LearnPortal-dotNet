@@ -1,6 +1,60 @@
-﻿namespace LearnPortal.PL.Services
+﻿using LearnPortal.BLL.DTO;
+using LearnPortal.BLL.Interfaces;
+using LearnPortal.BLL.Services;
+using LearnPortal.PL.ViewModels;
+
+namespace LearnPortal.PL.Services
 {
-    internal class UiSkillService
+    public class UiSkillService
     {
+        private readonly SkillService _skillService;
+
+        public UserDTO CurrentUser { get; private set; }
+
+        public UiSkillService(UserDTO currentUser)
+        {
+            _skillService = new SkillService(currentUser);
+            CurrentUser = currentUser;
+        }
+
+        public SkillViewModel EnteringSkillFields()
+        {
+            PrinterService.Message("Enter a Title of a skill:");
+            string title = Console.ReadLine();
+            PrinterService.Message("Enter a Description of a skill:");
+            string description = Console.ReadLine();
+
+            return new SkillViewModel
+            {
+                Title = title,
+                Description = description,
+            };
+        }
+
+        public async Task CreateSkillAsync()
+        {
+            try
+            {
+                SkillViewModel skill = EnteringSkillFields();
+
+                PrinterService.BreakLine();
+                if (skill != null)
+                {
+                    await _skillService.CreateSkill(new SkillDTO
+                    {
+                        Title = skill.Title,
+                        Description = skill.Description,
+                    });
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
+            }
+        }
     }
 }
