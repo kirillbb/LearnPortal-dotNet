@@ -67,13 +67,41 @@ namespace LearnPortal.PL.Services
                 {
                     Id = skill.Id,
                     OwnerId = skill.Id,
-                    Title = skill   .Title,
+                    Title = skill.Title,
                     Description = skill.Description,
                 });
             }
             else
             {
                 PrinterService.ErrorMsg("Incorrect Id");
+            }
+        }
+
+        public async Task UpdateSkillAsync()
+        {
+            try
+            {
+                var id = UserInputService.GetId();
+                SkillViewModel skill = EnteringSkillFields();
+                skill.Id = id;
+
+                PrinterService.BreakLine();
+                if (skill != null)
+                {
+                    await _skillService.UpdateSkill(new SkillDTO
+                    {
+                        Title = skill.Title,
+                        Description = skill.Description,
+                    });
+                }
+                else
+                {
+                    PrinterService.ErrorMsg("Try again");
+                }
+            }
+            catch (Exception ex)
+            {
+                PrinterService.ErrorMsg(ex.Message);
             }
         }
     }
