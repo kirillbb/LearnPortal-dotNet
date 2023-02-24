@@ -46,7 +46,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (video != null)
                 {
-                    await _videoService.CreateVideo(new VideoDTO
+                    await _videoService.CreateAsync(new VideoDTO
                     {
                         Title = video.Title,
                         Resolution = video.Resolution,
@@ -70,7 +70,7 @@ namespace LearnPortal.PL.Services
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var video = await _videoService.GetVideo(id);
+                var video = await _videoService.GetAsync(id);
                 PrinterService.Print(new VideoViewModel
                 {
                     Id = video.Id,
@@ -98,7 +98,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (video != null)
                 {
-                    await _videoService.UpdateVideo(new VideoDTO
+                    await _videoService.UpdateAsync(new VideoDTO
                     {
                         Title = video.Title,
                         Description = video.Description,
@@ -123,7 +123,7 @@ namespace LearnPortal.PL.Services
             try
             {
                 var id = UserInputService.GetId();
-                await _videoService.DeleteVideo(id);
+                await _videoService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                var videos = await _videoService.GetVideosAsync();
+                var videos = await _videoService.GetAllAsync();
                 if (videos != null)
                 {
                     foreach (var video in videos)

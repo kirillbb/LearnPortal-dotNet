@@ -40,7 +40,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (skill != null)
                 {
-                    await _skillService.CreateSkill(new SkillDTO
+                    await _skillService.CreateAsync(new SkillDTO
                     {
                         Title = skill.Title,
                         Description = skill.Description,
@@ -62,7 +62,7 @@ namespace LearnPortal.PL.Services
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var skill = await _skillService.GetSkill(id);
+                var skill = await _skillService.GetAsync(id);
                 PrinterService.Print(new SkillViewModel
                 {
                     Id = skill.Id,
@@ -88,7 +88,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (skill != null)
                 {
-                    await _skillService.UpdateSkill(new SkillDTO
+                    await _skillService.UpdateAsync(new SkillDTO
                     {
                         Title = skill.Title,
                         Description = skill.Description,
@@ -110,7 +110,7 @@ namespace LearnPortal.PL.Services
             try
             {
                 var id = UserInputService.GetId();
-                await _skillService.DeleteSkill(id);
+                await _skillService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                var skills = await _skillService.GetSkillsAsync();
+                var skills = await _skillService.GetAllAsync();
                 if (skills != null)
                 {
                     foreach (var skill in skills)

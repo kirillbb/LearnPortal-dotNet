@@ -46,7 +46,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (publication != null)
                 {
-                    await _publicationService.CreatePublication(new PublicationDTO
+                    await _publicationService.CreateAsync(new PublicationDTO
                     {
                         Title = publication.Title,
                         Description = publication.Description,
@@ -70,7 +70,7 @@ namespace LearnPortal.PL.Services
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var publication = await _publicationService.GetPublication(id);
+                var publication = await _publicationService.GetAsync(id);
                 PrinterService.Print(new PublicationViewModel
                 {
                     Id = publication.Id,
@@ -98,7 +98,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (publication != null)
                 {
-                    await _publicationService.UpdatePublication(new PublicationDTO
+                    await _publicationService.UpdateAsync(new PublicationDTO
                     {
                         //OwnerId = book.OwnerId, check,i need that or not?
                         Title = publication.Title,
@@ -123,7 +123,7 @@ namespace LearnPortal.PL.Services
             try
             {
                 var id = UserInputService.GetId();
-                await _publicationService.DeletePublication(id);
+                await _publicationService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                var publications = await _publicationService.GetPublicationsAsync();
+                var publications = await _publicationService.GetAllAsync();
                 if (publications != null)
                 {
                     foreach (var publication in publications)

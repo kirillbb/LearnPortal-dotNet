@@ -52,7 +52,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (book != null)
                 {
-                    await _bookService.CreateBook(new BookDTO
+                    await _bookService.CreateAsync(new BookDTO
                     {
                         Author = book.Author,
                         Title = book.Title,
@@ -78,7 +78,7 @@ namespace LearnPortal.PL.Services
             var id = UserInputService.GetId();
             if (id != Guid.Empty)
             {
-                var book = await _bookService.GetBook(id);
+                var book = await _bookService.GetAsync(id);
                 PrinterService.Print(new BookViewModel
                 {
                     Id = book.Id,
@@ -108,7 +108,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.BreakLine();
                 if (book != null)
                 {
-                    await _bookService.UpdateBook(new BookDTO
+                    await _bookService.UpdateAsync(new BookDTO
                     {
                         Author = book.Author,
                         //OwnerId = book.OwnerId, check,i need that or not?
@@ -135,7 +135,7 @@ namespace LearnPortal.PL.Services
             try
             {
                 var id = UserInputService.GetId();
-                await _bookService.DeleteBook(id);
+                await _bookService.DeleteAsync(id);
             }
             catch (Exception ex)
             {
@@ -147,7 +147,7 @@ namespace LearnPortal.PL.Services
         {
             try
             {
-                var books = await _bookService.GetBooksAsync();
+                var books = await _bookService.GetAllAsync();
                 if (books != null)
                 {
                     foreach (var book in books)
