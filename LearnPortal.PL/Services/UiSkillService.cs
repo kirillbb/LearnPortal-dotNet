@@ -105,7 +105,7 @@ namespace LearnPortal.PL.Services
             }
         }
 
-        public async Task DeleteBookAsync()
+        public async Task DeleteSkillAsync()
         {
             try
             {
@@ -117,5 +117,7 @@ namespace LearnPortal.PL.Services
                 PrinterService.ErrorMsg(ex.Message);
             }
         }
+
+
     }
 }
