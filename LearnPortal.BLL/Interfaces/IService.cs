@@ -10,10 +10,8 @@ namespace LearnPortal.BLL.Interfaces
 
         Task UpdateAsync(T item);
 
-        IEnumerable<VideoDTO> Find(Func<T, bool> predicate);
+        Task<T> GetAsync(Guid id);
 
-        Task<VideoDTO> GetAsync(Guid id);
-
-        Task<IEnumerable<T>> GetAsync();
+        Task<IEnumerable<T>> GetAllAsync();
     }
 }
